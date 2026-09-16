@@ -1,0 +1,6 @@
+@GlobeTrek.Api_HostAddress = http://localhost:5072
+
+GET {{GlobeTrek.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
