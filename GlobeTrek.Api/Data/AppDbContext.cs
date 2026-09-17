@@ -11,12 +11,17 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
-
     public DbSet<Role> Roles => Set<Role>();
+    public DbSet<TourPackage> TourPackages => Set<TourPackage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<User>()
+            .Property(u => u.Email)
+            .HasMaxLength(191)
+            .IsRequired();
 
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
@@ -27,5 +32,9 @@ public class AppDbContext : DbContext
             new Role { RoleId = 2, RoleName = "Staff" },
             new Role { RoleId = 3, RoleName = "Admin" }
         );
+       
+        modelBuilder.Entity<TourPackage>()
+    	   .Property(p => p.Price)
+           .HasPrecision(10, 2);
     }
 }
