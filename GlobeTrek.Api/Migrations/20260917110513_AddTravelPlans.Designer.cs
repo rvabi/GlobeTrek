@@ -4,6 +4,7 @@ using GlobeTrek.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlobeTrek.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260917110513_AddTravelPlans")]
+    partial class AddTravelPlans
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,53 +24,6 @@ namespace GlobeTrek.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("GlobeTrek.Api.Models.Accommodation", b =>
-                {
-                    b.Property<int>("AccommodationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AccommodationId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Facilities")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("PricePerNight")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("RoomType")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("AccommodationId");
-
-                    b.ToTable("Accommodations");
-                });
 
             modelBuilder.Entity("GlobeTrek.Api.Models.Booking", b =>
                 {
@@ -107,46 +63,6 @@ namespace GlobeTrek.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("GlobeTrek.Api.Models.CustomerQuery", b =>
-                {
-                    b.Property<int>("CustomerQueryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CustomerQueryId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("QueryStatus")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("RespondedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Response")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CustomerQueryId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CustomerQueries");
                 });
 
             modelBuilder.Entity("GlobeTrek.Api.Models.Payment", b =>
@@ -233,9 +149,6 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("AccommodationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Activities")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -273,59 +186,9 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("TransportationId")
-                        .HasColumnType("int");
-
                     b.HasKey("TourPackageId");
 
-                    b.HasIndex("AccommodationId");
-
-                    b.HasIndex("TransportationId");
-
                     b.ToTable("TourPackages");
-                });
-
-            modelBuilder.Entity("GlobeTrek.Api.Models.Transportation", b =>
-                {
-                    b.Property<int>("TransportationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TransportationId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FromLocation")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("ProviderName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ToLocation")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("TransportType")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("TransportationId");
-
-                    b.ToTable("Transportations");
                 });
 
             modelBuilder.Entity("GlobeTrek.Api.Models.TravelPlan", b =>
@@ -393,9 +256,6 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -440,17 +300,6 @@ namespace GlobeTrek.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GlobeTrek.Api.Models.CustomerQuery", b =>
-                {
-                    b.HasOne("GlobeTrek.Api.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("GlobeTrek.Api.Models.Payment", b =>
                 {
                     b.HasOne("GlobeTrek.Api.Models.Booking", "Booking")
@@ -460,21 +309,6 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Booking");
-                });
-
-            modelBuilder.Entity("GlobeTrek.Api.Models.TourPackage", b =>
-                {
-                    b.HasOne("GlobeTrek.Api.Models.Accommodation", "AccommodationDetail")
-                        .WithMany()
-                        .HasForeignKey("AccommodationId");
-
-                    b.HasOne("GlobeTrek.Api.Models.Transportation", "TransportationDetail")
-                        .WithMany()
-                        .HasForeignKey("TransportationId");
-
-                    b.Navigation("AccommodationDetail");
-
-                    b.Navigation("TransportationDetail");
                 });
 
             modelBuilder.Entity("GlobeTrek.Api.Models.TravelPlan", b =>

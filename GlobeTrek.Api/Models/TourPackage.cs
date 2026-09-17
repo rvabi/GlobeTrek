@@ -25,4 +25,10 @@ public class TourPackage
     public bool IsActive { get; set; } = true;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public int? AccommodationId { get; set; }
+    public Accommodation? AccommodationDetail { get; set; }
+
+    public int? TransportationId { get; set; }
+    public Transportation? TransportationDetail { get; set; }
 }

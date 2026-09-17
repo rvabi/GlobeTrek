@@ -4,6 +4,7 @@ using GlobeTrek.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlobeTrek.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260917114633_AddAccommodationAndTransportation")]
+    partial class AddAccommodationAndTransportation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,9 +236,6 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("AccommodationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Activities")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -273,14 +273,7 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("TransportationId")
-                        .HasColumnType("int");
-
                     b.HasKey("TourPackageId");
-
-                    b.HasIndex("AccommodationId");
-
-                    b.HasIndex("TransportationId");
 
                     b.ToTable("TourPackages");
                 });
@@ -460,21 +453,6 @@ namespace GlobeTrek.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Booking");
-                });
-
-            modelBuilder.Entity("GlobeTrek.Api.Models.TourPackage", b =>
-                {
-                    b.HasOne("GlobeTrek.Api.Models.Accommodation", "AccommodationDetail")
-                        .WithMany()
-                        .HasForeignKey("AccommodationId");
-
-                    b.HasOne("GlobeTrek.Api.Models.Transportation", "TransportationDetail")
-                        .WithMany()
-                        .HasForeignKey("TransportationId");
-
-                    b.Navigation("AccommodationDetail");
-
-                    b.Navigation("TransportationDetail");
                 });
 
             modelBuilder.Entity("GlobeTrek.Api.Models.TravelPlan", b =>

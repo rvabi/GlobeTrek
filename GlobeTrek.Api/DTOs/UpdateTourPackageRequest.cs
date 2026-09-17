@@ -21,4 +21,8 @@ public class UpdateTourPackageRequest
     public string ImageUrl { get; set; } = string.Empty;
 
     public bool IsActive { get; set; }
+
+    public int? AccommodationId { get; set; }
+
+    public int? TransportationId { get; set; }
 }

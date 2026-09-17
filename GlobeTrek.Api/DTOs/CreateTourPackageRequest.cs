@@ -19,4 +19,8 @@ public class CreateTourPackageRequest
     public string Activities { get; set; } = string.Empty;
 
     public string ImageUrl { get; set; } = string.Empty;
+
+    public int? AccommodationId { get; set; }
+
+    public int? TransportationId { get; set; }
 }
