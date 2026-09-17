@@ -19,6 +19,7 @@ public class AppDbContext : DbContext
     public DbSet<CustomerQuery> CustomerQueries => Set<CustomerQuery>();
     public DbSet<Accommodation> Accommodations => Set<Accommodation>();
     public DbSet<Transportation> Transportations => Set<Transportation>();
+    public DbSet<Destination> Destinations => Set<Destination>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -87,5 +88,17 @@ public class AppDbContext : DbContext
 	modelBuilder.Entity<Transportation>()
     	  .Property(t => t.Price)
     	  .HasPrecision(10, 2);
+
+	modelBuilder.Entity<TourPackage>()
+    	  .HasOne(p => p.AccommodationDetail)
+    	  .WithMany()
+    	  .HasForeignKey(p => p.AccommodationId)
+    	  .OnDelete(DeleteBehavior.SetNull);
+
+	modelBuilder.Entity<TourPackage>()
+    	  .HasOne(p => p.TransportationDetail)
+    	  .WithMany()
+    	  .HasForeignKey(p => p.TransportationId)
+    	  .OnDelete(DeleteBehavior.SetNull);
     }
 }

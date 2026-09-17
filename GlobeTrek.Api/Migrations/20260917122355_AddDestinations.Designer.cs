@@ -4,6 +4,7 @@ using GlobeTrek.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlobeTrek.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260917122355_AddDestinations")]
+    partial class AddDestinations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,53 +150,6 @@ namespace GlobeTrek.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CustomerQueries");
-                });
-
-            modelBuilder.Entity("GlobeTrek.Api.Models.Destination", b =>
-                {
-                    b.Property<int>("DestinationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("DestinationId"));
-
-                    b.Property<string>("Attractions")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("BestTimeToVisit")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("TravelTips")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("DestinationId");
-
-                    b.ToTable("Destinations");
                 });
 
             modelBuilder.Entity("GlobeTrek.Api.Models.Payment", b =>
@@ -513,13 +469,11 @@ namespace GlobeTrek.Api.Migrations
                 {
                     b.HasOne("GlobeTrek.Api.Models.Accommodation", "AccommodationDetail")
                         .WithMany()
-                        .HasForeignKey("AccommodationId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("AccommodationId");
 
                     b.HasOne("GlobeTrek.Api.Models.Transportation", "TransportationDetail")
                         .WithMany()
-                        .HasForeignKey("TransportationId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("TransportationId");
 
                     b.Navigation("AccommodationDetail");
 

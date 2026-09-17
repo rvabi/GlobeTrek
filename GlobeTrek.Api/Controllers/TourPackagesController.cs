@@ -33,6 +33,117 @@ public class TourPackagesController : ControllerBase
         return Ok(packages);
     }
 
+    // GET: api/TourPackages/search
+    [HttpGet("search")]
+[AllowAnonymous]
+public async Task<IActionResult> Search(
+    string? destination,
+    decimal? minPrice,
+    decimal? maxPrice,
+    int? minDuration,
+    int? maxDuration)
+{
+    if (minPrice.HasValue &&
+        maxPrice.HasValue &&
+        minPrice.Value > maxPrice.Value)
+    {
+        return BadRequest(new
+        {
+            message =
+                "Minimum price cannot be greater than maximum price."
+        });
+    }
+
+    if (minDuration.HasValue &&
+        maxDuration.HasValue &&
+        minDuration.Value > maxDuration.Value)
+    {
+        return BadRequest(new
+        {
+            message =
+                "Minimum duration cannot be greater than maximum duration."
+        });
+    }
+
+    if (minPrice.HasValue && minPrice.Value < 0)
+    {
+        return BadRequest(new
+        {
+            message = "Minimum price cannot be negative."
+        });
+    }
+
+    if (maxPrice.HasValue && maxPrice.Value < 0)
+    {
+        return BadRequest(new
+        {
+            message = "Maximum price cannot be negative."
+        });
+    }
+
+    if (minDuration.HasValue && minDuration.Value <= 0)
+    {
+        return BadRequest(new
+        {
+            message =
+                "Minimum duration must be greater than zero."
+        });
+    }
+
+    if (maxDuration.HasValue && maxDuration.Value <= 0)
+    {
+        return BadRequest(new
+        {
+            message =
+                "Maximum duration must be greater than zero."
+        });
+    }
+
+    var query = _context.TourPackages
+        .Where(p => p.IsActive)
+        .Include(p => p.AccommodationDetail)
+        .Include(p => p.TransportationDetail)
+        .AsQueryable();
+
+    if (!string.IsNullOrWhiteSpace(destination))
+    {
+        var destinationText = destination.Trim();
+
+        query = query.Where(p =>
+            p.Destination.Contains(destinationText));
+    }
+
+    if (minPrice.HasValue)
+    {
+        query = query.Where(p =>
+            p.Price >= minPrice.Value);
+    }
+
+    if (maxPrice.HasValue)
+    {
+        query = query.Where(p =>
+            p.Price <= maxPrice.Value);
+    }
+
+    if (minDuration.HasValue)
+    {
+        query = query.Where(p =>
+            p.DurationDays >= minDuration.Value);
+    }
+
+    if (maxDuration.HasValue)
+    {
+        query = query.Where(p =>
+            p.DurationDays <= maxDuration.Value);
+    }
+
+    var packages = await query
+        .OrderBy(p => p.Price)
+        .ToListAsync();
+
+    return Ok(packages);
+}
+
     // GET: api/TourPackages/1
     [HttpGet("{id:int}")]
     [AllowAnonymous]
@@ -41,7 +152,8 @@ public class TourPackagesController : ControllerBase
         var package = await _context.TourPackages
             .Include(p => p.AccommodationDetail)
             .Include(p => p.TransportationDetail)
-            .FirstOrDefaultAsync(p => p.TourPackageId == id);
+            .FirstOrDefaultAsync(p =>
+                p.TourPackageId == id);
 
         if (package == null)
         {
@@ -60,14 +172,37 @@ public class TourPackagesController : ControllerBase
     public async Task<IActionResult> Create(
         CreateTourPackageRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.PackageName) ||
-            string.IsNullOrWhiteSpace(request.Destination) ||
-            request.DurationDays <= 0 ||
-            request.Price <= 0)
+        if (string.IsNullOrWhiteSpace(request.PackageName))
         {
             return BadRequest(new
             {
-                message = "Please provide valid package details."
+                message = "Package name is required."
+            });
+        }
+
+        if (string.IsNullOrWhiteSpace(request.Destination))
+        {
+            return BadRequest(new
+            {
+                message = "Destination is required."
+            });
+        }
+
+        if (request.DurationDays <= 0)
+        {
+            return BadRequest(new
+            {
+                message =
+                    "Duration must be greater than zero."
+            });
+        }
+
+        if (request.Price <= 0)
+        {
+            return BadRequest(new
+            {
+                message =
+                    "Price must be greater than zero."
             });
         }
 
@@ -111,23 +246,43 @@ public class TourPackagesController : ControllerBase
 
         var package = new TourPackage
         {
-            PackageName = request.PackageName.Trim(),
-            Destination = request.Destination.Trim(),
-            Description = request.Description.Trim(),
-            DurationDays = request.DurationDays,
-            Price = request.Price,
+            PackageName =
+                request.PackageName.Trim(),
 
-            Accommodation = request.Accommodation.Trim(),
-            Transportation = request.Transportation.Trim(),
+            Destination =
+                request.Destination.Trim(),
 
-            Activities = request.Activities.Trim(),
-            ImageUrl = request.ImageUrl.Trim(),
+            Description =
+                request.Description.Trim(),
 
-            AccommodationId = request.AccommodationId,
-            TransportationId = request.TransportationId,
+            DurationDays =
+                request.DurationDays,
+
+            Price =
+                request.Price,
+
+            Accommodation =
+                request.Accommodation.Trim(),
+
+            Transportation =
+                request.Transportation.Trim(),
+
+            Activities =
+                request.Activities.Trim(),
+
+            ImageUrl =
+                request.ImageUrl.Trim(),
+
+            AccommodationId =
+                request.AccommodationId,
+
+            TransportationId =
+                request.TransportationId,
 
             IsActive = true,
-            CreatedAt = DateTime.UtcNow
+
+            CreatedAt =
+                DateTime.UtcNow
         };
 
         _context.TourPackages.Add(package);
@@ -160,14 +315,37 @@ public class TourPackagesController : ControllerBase
             });
         }
 
-        if (string.IsNullOrWhiteSpace(request.PackageName) ||
-            string.IsNullOrWhiteSpace(request.Destination) ||
-            request.DurationDays <= 0 ||
-            request.Price <= 0)
+        if (string.IsNullOrWhiteSpace(request.PackageName))
         {
             return BadRequest(new
             {
-                message = "Please provide valid package details."
+                message = "Package name is required."
+            });
+        }
+
+        if (string.IsNullOrWhiteSpace(request.Destination))
+        {
+            return BadRequest(new
+            {
+                message = "Destination is required."
+            });
+        }
+
+        if (request.DurationDays <= 0)
+        {
+            return BadRequest(new
+            {
+                message =
+                    "Duration must be greater than zero."
+            });
+        }
+
+        if (request.Price <= 0)
+        {
+            return BadRequest(new
+            {
+                message =
+                    "Price must be greater than zero."
             });
         }
 
