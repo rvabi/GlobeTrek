@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign In | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="auth-page">
+
+    <section class="auth-layout">
+
+        <div class="auth-visual auth-login-visual">
+
+            <div class="auth-overlay"></div>
+
+            <a href="../index.html" class="brand auth-brand">
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+            </a>
+
+            <div class="auth-visual-content">
+
+                <p class="section-eyebrow">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Your next journey
+                    starts here.
+                </h1>
+
+                <p>
+                    Sign in to manage bookings,
+                    payments and travel plans
+                    with GlobeTrek Adventures.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="auth-form-side">
+
+            <div class="auth-form-wrap">
+
+                <div class="auth-mobile-logo">
+                    <a href="../index.html" class="brand">
+
+                        <div class="brand-icon">
+                            <span>G</span>
+                        </div>
+
+                        <div class="brand-text">
+                            <strong>GlobeTrek</strong>
+                            <small>ADVENTURES</small>
+                        </div>
+
+                    </a>
+                </div>
+
+
+                <p class="section-eyebrow">
+                    ACCOUNT ACCESS
+                </p>
+
+                <h2>
+                    Sign in to GlobeTrek
+                </h2>
+
+                <p class="auth-subtitle">
+                    Enter your account details
+                    to continue your journey.
+                </p>
+
+
+                <div
+                    id="loginMessage"
+                    class="auth-message"
+                ></div>
+
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <div class="password-field">
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="loginPasswordToggle"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary auth-submit-btn"
+                        id="loginBtn"
+                    >
+                        Sign In
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <div class="auth-divider">
+                    <span></span>
+                    <p>New to GlobeTrek?</p>
+                    <span></span>
+                </div>
+
+
+                <a
+                    href="register.html"
+                    class="auth-secondary-btn"
+                >
+                    Create Customer Account
+                </a>
+
+
+                <p class="auth-footer-text">
+                    By continuing, you agree to
+                    GlobeTrek's account and booking policies.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

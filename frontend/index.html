@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GlobeTrek Adventures | Explore Beyond Ordinary</title>
+
+    <meta
+        name="description"
+        content="Discover unforgettable Sri Lankan journeys with GlobeTrek Adventures."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+    <header class="site-header" id="header">
+        <div class="container navbar">
+
+            <a href="index.html" class="brand">
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="pages/packages.html">Packages</a>
+                <a href="pages/destinations.html">Destinations</a>
+                <a href="#experiences">Experiences</a>
+                <a href="#about">About</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a
+                    href="pages/login.html"
+                    class="nav-login"
+                >
+                    Sign In
+                </a>
+
+                <a
+                    href="pages/register.html"
+                    class="btn btn-small"
+                >
+                    Join GlobeTrek
+                </a>
+            </div>
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+                aria-label="Open navigation menu"
+            >
+                ☰
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-overlay"></div>
+
+            <div class="container hero-content">
+
+                <div class="hero-badge">
+                    ✦ Curated Sri Lankan Journeys
+                </div>
+
+                <h1>
+                    Explore Sri Lanka,
+                    <span>Beyond the Ordinary.</span>
+                </h1>
+
+                <p class="hero-description">
+                    From mist-covered mountains to golden coastlines,
+                    discover carefully curated journeys, beautiful stays
+                    and seamless travel experiences.
+                </p>
+
+                <div class="hero-buttons">
+                    <a
+                        href="pages/packages.html"
+                        class="btn btn-primary"
+                    >
+                        Explore Packages
+                        <span>→</span>
+                    </a>
+
+                    <a
+                        href="pages/register.html"
+                        class="btn btn-outline-light"
+                    >
+                        Plan Your Journey
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+
+                    <div>
+                        <strong>25+</strong>
+                        <span>Destinations</span>
+                    </div>
+
+                    <div class="stat-divider"></div>
+
+                    <div>
+                        <strong>40+</strong>
+                        <span>Travel Experiences</span>
+                    </div>
+
+                    <div class="stat-divider"></div>
+
+                    <div>
+                        <strong>24/7</strong>
+                        <span>Travel Support</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search Box -->
+            <div class="container hero-search-wrapper">
+
+                <div class="hero-search">
+
+                    <div class="search-field">
+                        <span class="search-icon">⌖</span>
+
+                        <div>
+                            <label>Destination</label>
+
+                            <input
+                                type="text"
+                                id="destinationSearch"
+                                placeholder="Where do you want to go?"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="search-separator"></div>
+
+                    <div class="search-field">
+                        <span class="search-icon">◷</span>
+
+                        <div>
+                            <label>Duration</label>
+
+                            <select id="durationSearch">
+                                <option value="">Any duration</option>
+                                <option value="1-3">1 - 3 Days</option>
+                                <option value="4-6">4 - 6 Days</option>
+                                <option value="7">7+ Days</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="search-separator"></div>
+
+                    <div class="search-field">
+                        <span class="search-icon">◈</span>
+
+                        <div>
+                            <label>Budget</label>
+
+                            <select id="budgetSearch">
+                                <option value="">Any budget</option>
+                                <option value="0-30000">
+                                    Under LKR 30,000
+                                </option>
+                                <option value="30000-60000">
+                                    LKR 30,000 - 60,000
+                                </option>
+                                <option value="60000">
+                                    LKR 60,000+
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button
+                        class="search-button"
+                        id="searchPackagesBtn"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INTRO
+        ========================== -->
+        <section class="intro-section" id="about">
+            <div class="container intro-grid">
+
+                <div>
+                    <p class="section-eyebrow">
+                        THE GLOBETREK EXPERIENCE
+                    </p>
+
+                    <h2 class="section-title">
+                        Journeys designed around
+                        <em>how you want to travel.</em>
+                    </h2>
+                </div>
+
+                <div class="intro-copy">
+                    <p>
+                        GlobeTrek Adventures brings together carefully
+                        selected destinations, accommodation,
+                        transportation and experiences to make every
+                        journey simple, memorable and personal.
+                    </p>
+
+                    <a
+                        href="pages/packages.html"
+                        class="text-link"
+                    >
+                        Discover our journeys →
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             FEATURED PACKAGES
+        ========================== -->
+        <section class="packages-section">
+
+            <div class="container">
+
+                <div class="section-heading-row">
+
+                    <div>
+                        <p class="section-eyebrow">
+                            HANDPICKED FOR YOU
+                        </p>
+
+                        <h2 class="section-title">
+                            Featured journeys
+                        </h2>
+                    </div>
+
+                    <a
+                        href="pages/packages.html"
+                        class="view-all-link"
+                    >
+                        View all packages →
+                    </a>
+
+                </div>
+
+
+                <div class="package-grid">
+
+                    <!-- Ella -->
+                    <article class="package-card">
+
+                        <div class="package-image package-ella">
+
+                            <span class="package-badge">
+                                Popular
+                            </span>
+
+                            <button
+                                class="wishlist-button"
+                                aria-label="Save package"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="package-content">
+
+                            <div class="package-location">
+                                ⌖ Ella, Sri Lanka
+                            </div>
+
+                            <h3>Ella Adventure Escape</h3>
+
+                            <p>
+                                Misty mountains, iconic railway bridges
+                                and unforgettable hill-country views.
+                            </p>
+
+                            <div class="package-meta">
+                                <span>◷ 3 Days</span>
+                                <span>♙ 2+ Guests</span>
+                            </div>
+
+                            <div class="package-footer">
+                                <div>
+                                    <small>From</small>
+                                    <strong>
+                                        LKR 45,000
+                                    </strong>
+                                </div>
+
+                                <a
+                                    href="pages/package-details.html?id=1"
+                                    class="round-arrow"
+                                >
+                                    →
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Sigiriya -->
+                    <article class="package-card">
+
+                        <div class="package-image package-sigiriya">
+
+                            <span class="package-badge dark">
+                                Cultural
+                            </span>
+
+                            <button
+                                class="wishlist-button"
+                                aria-label="Save package"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="package-content">
+
+                            <div class="package-location">
+                                ⌖ Sigiriya, Sri Lanka
+                            </div>
+
+                            <h3>Ancient Kingdom Discovery</h3>
+
+                            <p>
+                                Explore ancient wonders, cultural
+                                heritage and breathtaking landscapes.
+                            </p>
+
+                            <div class="package-meta">
+                                <span>◷ 4 Days</span>
+                                <span>♙ 2+ Guests</span>
+                            </div>
+
+                            <div class="package-footer">
+                                <div>
+                                    <small>From</small>
+                                    <strong>
+                                        LKR 58,000
+                                    </strong>
+                                </div>
+
+                                <a
+                                    href="pages/packages.html"
+                                    class="round-arrow"
+                                >
+                                    →
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Mirissa -->
+                    <article class="package-card">
+
+                        <div class="package-image package-mirissa">
+
+                            <span class="package-badge">
+                                Coastal
+                            </span>
+
+                            <button
+                                class="wishlist-button"
+                                aria-label="Save package"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="package-content">
+
+                            <div class="package-location">
+                                ⌖ Mirissa, Sri Lanka
+                            </div>
+
+                            <h3>Southern Coast Escape</h3>
+
+                            <p>
+                                Tropical beaches, ocean adventures
+                                and relaxed coastal experiences.
+                            </p>
+
+                            <div class="package-meta">
+                                <span>◷ 3 Days</span>
+                                <span>♙ 2+ Guests</span>
+                            </div>
+
+                            <div class="package-footer">
+                                <div>
+                                    <small>From</small>
+                                    <strong>
+                                        LKR 52,000
+                                    </strong>
+                                </div>
+
+                                <a
+                                    href="pages/packages.html"
+                                    class="round-arrow"
+                                >
+                                    →
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             DESTINATIONS
+        ========================== -->
+        <section class="destinations-section">
+
+            <div class="container">
+
+                <div class="center-heading">
+                    <p class="section-eyebrow">
+                        WHERE WILL YOU GO NEXT?
+                    </p>
+
+                    <h2 class="section-title">
+                        Discover remarkable places
+                    </h2>
+
+                    <p>
+                        Explore Sri Lanka through destinations filled
+                        with culture, nature and unforgettable stories.
+                    </p>
+                </div>
+
+
+                <div class="destination-grid">
+
+                    <a
+                        href="pages/destinations.html"
+                        class="destination-card destination-ella"
+                    >
+                        <div class="destination-overlay"></div>
+
+                        <div class="destination-content">
+                            <span>Hill Country</span>
+                            <h3>Ella</h3>
+                            <p>Mountains • Hiking • Nature</p>
+                        </div>
+                    </a>
+
+
+                    <a
+                        href="pages/destinations.html"
+                        class="destination-card destination-galle"
+                    >
+                        <div class="destination-overlay"></div>
+
+                        <div class="destination-content">
+                            <span>Southern Coast</span>
+                            <h3>Galle</h3>
+                            <p>Heritage • Beaches • Culture</p>
+                        </div>
+                    </a>
+
+
+                    <a
+                        href="pages/destinations.html"
+                        class="destination-card destination-yala"
+                    >
+                        <div class="destination-overlay"></div>
+
+                        <div class="destination-content">
+                            <span>Wild Sri Lanka</span>
+                            <h3>Yala</h3>
+                            <p>Safari • Wildlife • Adventure</p>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WHY GLOBETREK
+        ========================== -->
+        <section class="why-section">
+
+            <div class="container">
+
+                <div class="center-heading light">
+                    <p class="section-eyebrow">
+                        TRAVEL WITH CONFIDENCE
+                    </p>
+
+                    <h2 class="section-title">
+                        Why travel with GlobeTrek?
+                    </h2>
+                </div>
+
+
+                <div class="why-grid">
+
+                    <div class="why-card">
+                        <div class="why-icon">✦</div>
+
+                        <h3>Curated Experiences</h3>
+
+                        <p>
+                            Carefully selected journeys designed
+                            to showcase the very best of Sri Lanka.
+                        </p>
+                    </div>
+
+                    <div class="why-card">
+                        <div class="why-icon">⌂</div>
+
+                        <h3>Quality Stays</h3>
+
+                        <p>
+                            Comfortable accommodation options
+                            selected for convenience and quality.
+                        </p>
+                    </div>
+
+                    <div class="why-card">
+                        <div class="why-icon">➜</div>
+
+                        <h3>Seamless Transport</h3>
+
+                        <p>
+                            Reliable transportation that connects
+                            every part of your journey.
+                        </p>
+                    </div>
+
+                    <div class="why-card">
+                        <div class="why-icon">♡</div>
+
+                        <h3>Personalized Travel</h3>
+
+                        <p>
+                            Customize your travel plan around
+                            your own preferences and interests.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             EXPERIENCE
+        ========================== -->
+        <section
+            class="experience-section"
+            id="experiences"
+        >
+
+            <div class="container experience-grid">
+
+                <div class="experience-image">
+                    <div class="experience-image-main"></div>
+
+                    <div class="experience-floating-card">
+                        <strong>100%</strong>
+                        <span>
+                            Designed around your journey
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="experience-content">
+
+                    <p class="section-eyebrow">
+                        YOUR JOURNEY, YOUR WAY
+                    </p>
+
+                    <h2 class="section-title">
+                        More than a holiday.
+                        <em>A journey made personal.</em>
+                    </h2>
+
+                    <p>
+                        Select your destination, book your preferred
+                        package and personalize accommodation,
+                        transportation, activities and special
+                        requests through one simple travel platform.
+                    </p>
+
+
+                    <div class="experience-list">
+
+                        <div>
+                            <span>01</span>
+
+                            <div>
+                                <strong>
+                                    Discover
+                                </strong>
+
+                                <p>
+                                    Search destinations and packages.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span>02</span>
+
+                            <div>
+                                <strong>
+                                    Book
+                                </strong>
+
+                                <p>
+                                    Reserve your selected travel package.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span>03</span>
+
+                            <div>
+                                <strong>
+                                    Customize
+                                </strong>
+
+                                <p>
+                                    Personalize your travel experience.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="pages/register.html"
+                        class="btn btn-primary"
+                    >
+                        Start Planning
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TESTIMONIALS
+        ========================== -->
+        <section class="testimonial-section">
+
+            <div class="container">
+
+                <div class="center-heading">
+                    <p class="section-eyebrow">
+                        TRAVEL STORIES
+                    </p>
+
+                    <h2 class="section-title">
+                        Memories made with GlobeTrek
+                    </h2>
+                </div>
+
+
+                <div class="testimonial-grid">
+
+                    <article class="testimonial-card">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <blockquote>
+                            “The Ella journey was perfectly organized.
+                            Everything from the accommodation to the
+                            transport was easy and comfortable.”
+                        </blockquote>
+
+                        <div class="testimonial-user">
+                            <div class="avatar">
+                                A
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Ayesha Fernando
+                                </strong>
+                                <span>
+                                    Colombo, Sri Lanka
+                                </span>
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <article class="testimonial-card">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <blockquote>
+                            “Being able to customize our journey made
+                            the entire holiday feel much more personal.”
+                        </blockquote>
+
+                        <div class="testimonial-user">
+                            <div class="avatar">
+                                N
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Nimal Perera
+                                </strong>
+                                <span>
+                                    Kandy, Sri Lanka
+                                </span>
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <article class="testimonial-card">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <blockquote>
+                            “A simple booking experience and a beautiful
+                            selection of destinations. We loved it.”
+                        </blockquote>
+
+                        <div class="testimonial-user">
+                            <div class="avatar">
+                                S
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Sarah James
+                                </strong>
+                                <span>
+                                    United Kingdom
+                                </span>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+        <section class="cta-section">
+
+            <div class="container">
+
+                <div class="cta-box">
+
+                    <div>
+                        <p class="section-eyebrow">
+                            YOUR NEXT JOURNEY STARTS HERE
+                        </p>
+
+                        <h2>
+                            Ready to discover
+                            <em>Sri Lanka differently?</em>
+                        </h2>
+
+                        <p>
+                            Explore carefully selected travel experiences
+                            and create a journey that feels truly yours.
+                        </p>
+                    </div>
+
+                    <div class="cta-actions">
+                        <a
+                            href="pages/packages.html"
+                            class="btn btn-primary"
+                        >
+                            Explore Packages
+                            <span>→</span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="brand">
+                    <div class="brand-icon">
+                        <span>G</span>
+                    </div>
+
+                    <div class="brand-text">
+                        <strong>GlobeTrek</strong>
+                        <small>ADVENTURES</small>
+                    </div>
+                </a>
+
+                <p>
+                    Curated journeys, thoughtful stays and
+                    unforgettable Sri Lankan experiences.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+                <h4>Explore</h4>
+
+                <a href="pages/packages.html">
+                    Tour Packages
+                </a>
+
+                <a href="pages/destinations.html">
+                    Destinations
+                </a>
+
+                <a href="#experiences">
+                    Experiences
+                </a>
+            </div>
+
+
+            <div class="footer-column">
+                <h4>Travel</h4>
+
+                <a href="pages/login.html">
+                    My Account
+                </a>
+
+                <a href="pages/customer/my-bookings.html">
+                    My Bookings
+                </a>
+
+                <a href="pages/customer/queries.html">
+                    Travel Support
+                </a>
+            </div>
+
+
+            <div class="footer-column">
+                <h4>Contact</h4>
+
+                <p>Negombo, Sri Lanka</p>
+                <p>hello@globetrek.lk</p>
+                <p>+94 77 123 4567</p>
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <p>
+                © 2026 GlobeTrek Adventures.
+                All rights reserved.
+            </p>
+
+            <div>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>

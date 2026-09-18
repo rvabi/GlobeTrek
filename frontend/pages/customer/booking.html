@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Journey | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+    <div class="container navbar">
+
+        <a href="../../index.html" class="brand">
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADVENTURES</small>
+            </div>
+        </a>
+
+        <nav class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../packages.html">Packages</a>
+            <a href="../destinations.html">Destinations</a>
+            <a href="my-bookings.html">My Bookings</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="booking-page-hero">
+
+        <div class="container">
+
+            <p class="section-eyebrow">
+                SECURE YOUR JOURNEY
+            </p>
+
+            <h1>
+                Complete your booking.
+            </h1>
+
+            <p>
+                Choose your travel date and number of travelers.
+                GlobeTrek will take care of the rest.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="customer-booking-section">
+
+        <div class="container customer-booking-layout">
+
+            <div class="customer-booking-form-card">
+
+                <div class="booking-step-label">
+                    <span>01</span>
+                    <p>TRAVEL DETAILS</p>
+                </div>
+
+                <h2>
+                    Plan your departure
+                </h2>
+
+                <p class="booking-form-intro">
+                    Confirm when you would like to travel
+                    and how many guests will be joining you.
+                </p>
+
+
+                <div
+                    id="bookingMessage"
+                    class="auth-message"
+                ></div>
+
+
+                <form id="bookingForm">
+
+                    <div class="form-group">
+
+                        <label for="travelDate">
+                            Travel Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="travelDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="numberOfTravelers">
+                            Number of Travelers
+                        </label>
+
+                        <div class="traveler-counter">
+
+                            <button
+                                type="button"
+                                id="minusTraveler"
+                                aria-label="Remove traveler"
+                            >
+                                −
+                            </button>
+
+                            <input
+                                type="number"
+                                id="numberOfTravelers"
+                                min="1"
+                                value="1"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="plusTraveler"
+                                aria-label="Add traveler"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="booking-price-preview">
+
+                        <div>
+                            <span>Package price</span>
+                            <strong id="singlePrice">
+                                LKR —
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Travelers</span>
+                            <strong id="travelerPreview">
+                                1
+                            </strong>
+                        </div>
+
+                        <div class="booking-price-total">
+                            <span>Estimated total</span>
+
+                            <strong id="estimatedTotal">
+                                LKR —
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary booking-confirm-btn"
+                        id="confirmBookingBtn"
+                    >
+                        Confirm Booking
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <aside class="journey-preview-card">
+
+                <div
+                    class="journey-preview-image"
+                    id="bookingPackageImage"
+                ></div>
+
+                <div class="journey-preview-content">
+
+                    <p class="section-eyebrow">
+                        YOUR JOURNEY
+                    </p>
+
+                    <h2 id="bookingPackageName">
+                        Loading...
+                    </h2>
+
+                    <div class="journey-preview-meta">
+
+                        <div>
+                            <span>Destination</span>
+                            <strong id="bookingPackageDestination">
+                                —
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Duration</span>
+                            <strong id="bookingPackageDuration">
+                                —
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Accommodation</span>
+                            <strong id="bookingPackageAccommodation">
+                                —
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Transportation</span>
+                            <strong id="bookingPackageTransport">
+                                —
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-secure-note">
+
+                        <span>✓</span>
+
+                        <p>
+                            Your booking will begin as
+                            <strong>Pending</strong>
+                            and can be managed from
+                            My Bookings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="../../index.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Explore</h4>
+            <a href="../packages.html">Packages</a>
+            <a href="../destinations.html">Destinations</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Account</h4>
+            <a href="my-bookings.html">My Bookings</a>
+            <a href="travel-plan.html">Travel Plan</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/booking.js"></script>
+
+</body>
+</html>

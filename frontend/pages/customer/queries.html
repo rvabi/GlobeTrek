@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Help & Queries | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="../../index.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADVENTURES</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="../../index.html">
+                Home
+            </a>
+
+            <a href="../packages.html">
+                Packages
+            </a>
+
+            <a href="../destinations.html">
+                Destinations
+            </a>
+
+            <a href="my-bookings.html">
+                My Bookings
+            </a>
+
+            <a href="travel-plan.html">
+                Travel Plan
+            </a>
+
+            <a
+                href="queries.html"
+                class="active"
+            >
+                Help
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="queries-hero">
+
+        <div class="container queries-hero-inner">
+
+            <div>
+
+                <p class="section-eyebrow">
+                    GLOBETREK SUPPORT
+                </p>
+
+                <h1>
+                    We're here when
+                    you need us.
+                </h1>
+
+                <p>
+                    Send a question about your booking,
+                    payment, travel plan or journey.
+                    Track every response from one place.
+                </p>
+
+            </div>
+
+
+            <a
+                href="my-bookings.html"
+                class="btn btn-primary"
+            >
+                View My Bookings
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="queries-section">
+
+        <div class="container queries-layout">
+
+            <!-- LEFT: QUERY FORM -->
+            <div class="query-form-card">
+
+                <div class="booking-step-label">
+                    <span>?</span>
+                    <p>ASK GLOBETREK</p>
+                </div>
+
+
+                <h2>
+                    How can we help?
+                </h2>
+
+                <p class="query-form-intro">
+                    Describe your question clearly and
+                    our travel team can respond through
+                    your GlobeTrek account.
+                </p>
+
+
+                <div
+                    id="queryMessage"
+                    class="auth-message"
+                ></div>
+
+
+                <form id="queryForm">
+
+                    <div class="form-group">
+
+                        <label for="querySubject">
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            id="querySubject"
+                            placeholder="Example: Question about my Ella booking"
+                            maxlength="150"
+                            required
+                        >
+
+                        <div class="field-counter">
+                            <span id="subjectCount">0</span>/150
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="queryText">
+                            Message
+                        </label>
+
+                        <textarea
+                            id="queryText"
+                            rows="7"
+                            placeholder="Tell us what you need help with..."
+                            maxlength="2000"
+                            required
+                        ></textarea>
+
+                        <div class="field-counter">
+                            <span id="messageCount">0</span>/2000
+                        </div>
+
+                    </div>
+
+
+                    <div class="query-help-note">
+
+                        <span>✦</span>
+
+                        <div>
+                            <strong>
+                                Include useful details
+                            </strong>
+
+                            <p>
+                                For booking-related questions,
+                                include the booking number or
+                                travel destination in your message.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="submitQueryBtn"
+                        class="btn btn-primary query-submit-btn"
+                    >
+                        Submit Query
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- RIGHT: SUPPORT INFO -->
+            <aside class="query-support-card">
+
+                <p class="section-eyebrow">
+                    SUPPORT GUIDE
+                </p>
+
+                <h2>
+                    Help throughout
+                    your journey.
+                </h2>
+
+                <p>
+                    Use GlobeTrek support for questions
+                    before, during or after your trip.
+                </p>
+
+
+                <div class="query-support-items">
+
+                    <div>
+
+                        <span>01</span>
+
+                        <div>
+                            <strong>
+                                Booking Questions
+                            </strong>
+
+                            <p>
+                                Dates, travelers,
+                                confirmations or booking status.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>02</span>
+
+                        <div>
+                            <strong>
+                                Payment Help
+                            </strong>
+
+                            <p>
+                                Transaction references
+                                and payment-related questions.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>03</span>
+
+                        <div>
+                            <strong>
+                                Travel Planning
+                            </strong>
+
+                            <p>
+                                Accommodation, transport,
+                                activities and personal requests.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>04</span>
+
+                        <div>
+                            <strong>
+                                General Support
+                            </strong>
+
+                            <p>
+                                Anything else about your
+                                GlobeTrek experience.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- MY QUERIES -->
+        <div class="container my-queries-wrap">
+
+            <div class="queries-list-heading">
+
+                <div>
+
+                    <p class="section-eyebrow">
+                        SUPPORT HISTORY
+                    </p>
+
+                    <h2>
+                        My Queries
+                    </h2>
+
+                </div>
+
+
+                <div class="query-filter-group">
+
+                    <button
+                        type="button"
+                        class="query-filter active"
+                        data-filter="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        type="button"
+                        class="query-filter"
+                        data-filter="open"
+                    >
+                        Open
+                    </button>
+
+                    <button
+                        type="button"
+                        class="query-filter"
+                        data-filter="in progress"
+                    >
+                        In Progress
+                    </button>
+
+                    <button
+                        type="button"
+                        class="query-filter"
+                        data-filter="resolved"
+                    >
+                        Resolved
+                    </button>
+
+                    <button
+                        type="button"
+                        class="query-filter"
+                        data-filter="closed"
+                    >
+                        Closed
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="queriesLoading"
+                class="bookings-loading"
+            >
+
+                <div class="loading-ring"></div>
+
+                <p>
+                    Loading your support queries...
+                </p>
+
+            </div>
+
+
+            <div
+                id="emptyQueries"
+                class="empty-bookings-state"
+                hidden
+            >
+
+                <div class="empty-bookings-icon">
+                    ?
+                </div>
+
+                <p class="section-eyebrow">
+                    NO SUPPORT REQUESTS
+                </p>
+
+                <h2>
+                    Everything looks good.
+                </h2>
+
+                <p>
+                    You haven't submitted any queries yet.
+                    Use the form above whenever you need help.
+                </p>
+
+            </div>
+
+
+            <div
+                id="queriesGrid"
+                class="queries-grid"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="../../index.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Explore</h4>
+            <a href="../packages.html">Packages</a>
+            <a href="../destinations.html">Destinations</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>My Travel</h4>
+            <a href="my-bookings.html">My Bookings</a>
+            <a href="travel-plan.html">Travel Plan</a>
+            <a href="queries.html">Help & Queries</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/queries.js"></script>
+
+</body>
+</html>

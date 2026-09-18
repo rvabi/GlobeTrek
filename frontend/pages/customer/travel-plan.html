@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel Plan | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+    <div class="container navbar">
+
+        <a href="../../index.html" class="brand">
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADVENTURES</small>
+            </div>
+        </a>
+
+        <nav class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../packages.html">Packages</a>
+            <a href="../destinations.html">Destinations</a>
+            <a href="my-bookings.html">My Bookings</a>
+            <a href="travel-plan.html" class="active">Travel Plan</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="travel-plan-hero">
+
+        <div class="container travel-plan-hero-inner">
+
+            <div>
+                <p class="section-eyebrow">
+                    PERSONALIZE YOUR JOURNEY
+                </p>
+
+                <h1>
+                    Make the journey yours.
+                </h1>
+
+                <p>
+                    Add your accommodation, transport,
+                    activities and special preferences
+                    to your confirmed GlobeTrek booking.
+                </p>
+            </div>
+
+            <a
+                href="my-bookings.html"
+                class="btn btn-primary"
+            >
+                View My Bookings
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="travel-plan-section">
+
+        <div class="container travel-plan-layout">
+
+            <!-- LEFT -->
+            <div class="travel-plan-builder">
+
+                <div class="travel-plan-heading">
+
+                    <p class="section-eyebrow">
+                        JOURNEY BUILDER
+                    </p>
+
+                    <h2>
+                        Customize your travel plan
+                    </h2>
+
+                    <p>
+                        Choose one of your bookings and
+                        tell us how you'd like the trip
+                        to be arranged.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="travelPlanMessage"
+                    class="auth-message"
+                ></div>
+
+
+                <form id="travelPlanForm">
+
+                    <input
+                        type="hidden"
+                        id="travelPlanId"
+                    >
+
+
+                    <div class="form-group">
+
+                        <label for="bookingSelect">
+                            Select Booking
+                        </label>
+
+                        <select
+                            id="bookingSelect"
+                            required
+                        >
+                            <option value="">
+                                Choose a booking
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="accommodationPreference">
+                                Accommodation Preference
+                            </label>
+
+                            <input
+                                type="text"
+                                id="accommodationPreference"
+                                placeholder="Example: Quiet room, mountain view"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="transportationPreference">
+                                Transportation Preference
+                            </label>
+
+                            <input
+                                type="text"
+                                id="transportationPreference"
+                                placeholder="Example: Private car"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="selectedActivities">
+                            Selected Activities
+                        </label>
+
+                        <textarea
+                            id="selectedActivities"
+                            rows="4"
+                            placeholder="Example: Hiking, tea plantation visit, train ride"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="specialRequests">
+                            Special Requests
+                        </label>
+
+                        <textarea
+                            id="specialRequests"
+                            rows="4"
+                            placeholder="Dietary needs, accessibility requirements, celebration arrangements..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="travelNotes">
+                            Additional Notes
+                        </label>
+
+                        <textarea
+                            id="travelNotes"
+                            rows="4"
+                            placeholder="Anything else you'd like GlobeTrek to know..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="travel-plan-form-actions">
+
+                        <button
+                            type="button"
+                            id="cancelEditBtn"
+                            class="booking-outline-btn"
+                            hidden
+                        >
+                            Cancel Edit
+                        </button>
+
+                        <button
+                            type="submit"
+                            id="saveTravelPlanBtn"
+                            class="btn btn-primary"
+                        >
+                            Save Travel Plan
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <aside class="travel-plan-side-card">
+
+                <p class="section-eyebrow">
+                    TRAVEL PROFILE
+                </p>
+
+                <h2>
+                    Thoughtful details,
+                    better journeys.
+                </h2>
+
+                <p>
+                    Your preferences help GlobeTrek
+                    understand how you want to travel.
+                </p>
+
+
+                <div class="travel-plan-tips">
+
+                    <div>
+                        <span>01</span>
+
+                        <div>
+                            <strong>Stay</strong>
+                            <p>
+                                Mention room type,
+                                scenery or comfort needs.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <span>02</span>
+
+                        <div>
+                            <strong>Move</strong>
+                            <p>
+                                Tell us your preferred
+                                transport style.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <span>03</span>
+
+                        <div>
+                            <strong>Experience</strong>
+                            <p>
+                                Add activities you don't
+                                want to miss.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <span>04</span>
+
+                        <div>
+                            <strong>Personalize</strong>
+                            <p>
+                                Add dietary, accessibility
+                                or celebration requests.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- SAVED PLANS -->
+        <div class="container saved-travel-plans-wrap">
+
+            <div class="saved-plans-heading">
+
+                <div>
+                    <p class="section-eyebrow">
+                        SAVED PLANS
+                    </p>
+
+                    <h2>
+                        Your personalized journeys
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div
+                id="travelPlansLoading"
+                class="bookings-loading"
+            >
+
+                <div class="loading-ring"></div>
+
+                <p>
+                    Loading your travel plans...
+                </p>
+
+            </div>
+
+
+            <div
+                id="emptyTravelPlans"
+                class="empty-bookings-state"
+                hidden
+            >
+
+                <div class="empty-bookings-icon">
+                    ✦
+                </div>
+
+                <p class="section-eyebrow">
+                    START PERSONALIZING
+                </p>
+
+                <h2>
+                    No travel plans yet.
+                </h2>
+
+                <p>
+                    Choose one of your bookings above
+                    and create your first personalized
+                    travel plan.
+                </p>
+
+            </div>
+
+
+            <div
+                id="travelPlansGrid"
+                class="travel-plans-grid"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="../../index.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Explore</h4>
+
+            <a href="../packages.html">
+                Packages
+            </a>
+
+            <a href="../destinations.html">
+                Destinations
+            </a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>My Travel</h4>
+
+            <a href="my-bookings.html">
+                My Bookings
+            </a>
+
+            <a href="travel-plan.html">
+                Travel Plan
+            </a>
+
+            <a href="queries.html">
+                Queries
+            </a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/travel-plan.js"></script>
+
+</body>
+</html>
