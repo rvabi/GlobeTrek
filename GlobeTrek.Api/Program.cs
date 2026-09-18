@@ -4,10 +4,33 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using GlobeTrek.Api.Middleware;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var errors = context.ModelState
+                .Where(x => x.Value?.Errors.Count > 0)
+                .ToDictionary(
+                    x => x.Key,
+                    x => x.Value!.Errors
+                        .Select(e => e.ErrorMessage)
+                        .ToArray()
+                );
+
+            return new BadRequestObjectResult(new
+            {
+                message = "Validation failed.",
+                errors
+            });
+        };
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -85,6 +108,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("Frontend");
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
