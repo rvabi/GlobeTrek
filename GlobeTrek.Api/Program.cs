@@ -109,6 +109,18 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>()?
+    .Where(origin => !string.IsNullOrWhiteSpace(origin))
+    .Select(origin => origin.TrimEnd('/'))
+    .ToArray() ?? [];
+
+if (allowedOrigins.Length == 0)
+{
+    throw new InvalidOperationException("At least one CORS origin must be configured.");
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
@@ -116,7 +128,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .AllowAnyOrigin()
+                .WithOrigins(allowedOrigins)
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         }
@@ -147,5 +159,6 @@ app.UseMiddleware<ActiveUserMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 app.Run();

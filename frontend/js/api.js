@@ -47,7 +47,9 @@ async function apiRequest(endpoint, options = {}) {
             localStorage.removeItem("user");
             const loginPath = typeof getAuthPagePath === "function"
                 ? getAuthPagePath("login.html")
-                : "/frontend/pages/login.html";
+                : window.location.pathname.startsWith("/frontend/")
+                    ? "/frontend/pages/login.html"
+                    : "/pages/login.html";
             window.location.assign(`${loginPath}?returnUrl=${encodeURIComponent(window.location.href)}`);
         }
 

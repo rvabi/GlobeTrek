@@ -305,7 +305,8 @@ async function handleLogin(event) {
             try {
                 const destination = new URL(returnUrl, window.location.href);
                 if (destination.origin === window.location.origin &&
-                    destination.pathname.startsWith("/frontend/pages/")) {
+                    (destination.pathname.startsWith("/frontend/pages/") ||
+                     destination.pathname.startsWith("/pages/"))) {
                     window.location.href = destination.href;
                     return;
                 }

@@ -3,3 +3,8 @@
 .vs/
 *.user
 *.suo
+.env
+.env.*
+!.env.example
+**/appsettings.Production.json
+**/aiven-ca.pem
