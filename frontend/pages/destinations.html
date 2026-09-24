@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Destinations | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="../index.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADVENTURES</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+            <a
+                href="destinations.html"
+                class="active"
+            >
+                Destinations
+            </a>
+
+            <a href="../index.html#experience">
+                Experiences
+            </a>
+
+            <a href="../index.html#about">
+                About
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <a
+                href="login.html"
+                class="nav-login"
+            >
+                Sign In
+            </a>
+
+            <a
+                href="register.html"
+                class="btn btn-small"
+            >
+                Join GlobeTrek
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+    <section class="destinations-page-hero">
+
+        <div class="container destinations-page-hero-content">
+
+            <p class="section-eyebrow">
+                EXPLORE SRI LANKA
+            </p>
+
+            <h1>
+                Places worth
+                <span>remembering.</span>
+            </h1>
+
+            <p>
+                From mist-covered highlands to ancient
+                landmarks and golden southern shores,
+                discover Sri Lanka through destinations
+                curated by GlobeTrek Adventures.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTRO -->
+    <section class="destinations-intro-section">
+
+        <div class="container destinations-intro-grid">
+
+            <div>
+
+                <p class="section-eyebrow">
+                    DISCOVER MORE
+                </p>
+
+                <h2 class="section-title">
+                    Find the place that
+                    <em>feels like you.</em>
+                </h2>
+
+            </div>
+
+
+            <div>
+
+                <p>
+                    Browse destinations, discover key attractions,
+                    find the best time to visit and read practical
+                    travel tips before choosing your next GlobeTrek journey.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+    <section class="destination-search-section">
+
+        <div class="container">
+
+            <div class="destination-search-card">
+
+                <div>
+
+                    <label for="destinationSearch">
+                        Search Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destinationSearch"
+                        placeholder="Search Ella, Galle, Yala..."
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="clearDestinationSearch"
+                    class="booking-outline-btn"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DESTINATION LIST -->
+    <section class="all-destinations-section">
+
+        <div class="container">
+
+            <div class="destinations-results-heading">
+
+                <div>
+
+                    <p class="section-eyebrow">
+                        CURATED PLACES
+                    </p>
+
+                    <h2>
+                        Explore Destinations
+                    </h2>
+
+                </div>
+
+
+                <p id="destinationCount">
+                    Loading destinations...
+                </p>
+
+            </div>
+
+
+            <div
+                id="destinationsMessage"
+                class="auth-message"
+            ></div>
+
+
+            <div
+                id="destinationsLoading"
+                class="bookings-loading"
+            >
+
+                <div class="loading-ring"></div>
+
+                <p>
+                    Discovering Sri Lanka...
+                </p>
+
+            </div>
+
+
+            <div
+                id="emptyDestinations"
+                class="empty-bookings-state"
+                hidden
+            >
+
+                <div class="empty-bookings-icon">
+                    ✦
+                </div>
+
+                <p class="section-eyebrow">
+                    NO DESTINATIONS FOUND
+                </p>
+
+                <h2>
+                    Try another place.
+                </h2>
+
+                <p>
+                    We couldn't find a destination
+                    matching your search.
+                </p>
+
+            </div>
+
+
+            <div
+                id="destinationsGrid"
+                class="destinations-page-grid"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- DESTINATION DETAIL MODAL -->
+<div
+    class="destination-modal"
+    id="destinationModal"
+>
+
+    <div class="destination-modal-card">
+
+        <button
+            type="button"
+            class="destination-modal-close"
+            id="destinationModalClose"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <div
+            class="destination-modal-image"
+            id="destinationModalImage"
+        ></div>
+
+
+        <div class="destination-modal-content">
+
+            <p
+                class="section-eyebrow"
+                id="destinationModalLocation"
+            >
+                SRI LANKA
+            </p>
+
+
+            <h2 id="destinationModalName">
+                Destination
+            </h2>
+
+
+            <p
+                class="destination-modal-description"
+                id="destinationModalDescription"
+            ></p>
+
+
+            <div class="destination-modal-info-grid">
+
+                <div>
+
+                    <span>
+                        Best Time to Visit
+                    </span>
+
+                    <strong
+                        id="destinationModalBestTime"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Location
+                    </span>
+
+                    <strong
+                        id="destinationModalLocationValue"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination-modal-section">
+
+                <span>
+                    TOP ATTRACTIONS
+                </span>
+
+                <div
+                    id="destinationModalAttractions"
+                    class="destination-attraction-list"
+                ></div>
+
+            </div>
+
+
+            <div class="destination-modal-section">
+
+                <span>
+                    TRAVEL TIPS
+                </span>
+
+                <p id="destinationModalTips">
+                    —
+                </p>
+
+            </div>
+
+
+            <a
+                href="packages.html"
+                class="btn btn-primary destination-modal-btn"
+                id="destinationPackagesBtn"
+            >
+                Find Packages
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="../index.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Explore</h4>
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+            <a href="destinations.html">
+                Destinations
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Account</h4>
+
+            <a href="login.html">
+                Sign In
+            </a>
+
+            <a href="register.html">
+                Create Account
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Contact</h4>
+
+            <p>Negombo, Sri Lanka</p>
+
+            <p>
+                hello@globetrek.lk
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/destinations.js"></script>
+
+</body>
+</html>

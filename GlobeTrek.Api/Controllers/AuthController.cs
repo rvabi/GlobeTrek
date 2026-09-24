@@ -70,16 +70,16 @@ public class AuthController : ControllerBase
             FirstName = request.FirstName.Trim(),
             LastName = request.LastName.Trim(),
             Email = email,
-            PhoneNumber = request.PhoneNumber.Trim(),
+            PhoneNumber = request.PhoneNumber?.Trim() ?? string.Empty,
             RoleId = customerRole.RoleId,
+            IsActive = true,
             CreatedAt = DateTime.UtcNow
         };
 
-        user.PasswordHash =
-            _passwordHasher.HashPassword(
-                user,
-                request.Password
-            );
+        user.PasswordHash = _passwordHasher.HashPassword(
+            user,
+            request.Password
+        );
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
@@ -124,18 +124,25 @@ public class AuthController : ControllerBase
             });
         }
 
-        var passwordResult =
-            _passwordHasher.VerifyHashedPassword(
-                user,
-                user.PasswordHash,
-                request.Password
-            );
+        var passwordResult = _passwordHasher.VerifyHashedPassword(
+            user,
+            user.PasswordHash,
+            request.Password
+        );
 
         if (passwordResult == PasswordVerificationResult.Failed)
         {
             return Unauthorized(new
             {
                 message = "Invalid email or password."
+            });
+        }
+
+        if (!user.IsActive)
+        {
+            return Unauthorized(new
+            {
+                message = "Your account has been deactivated. Please contact the administrator."
             });
         }
 

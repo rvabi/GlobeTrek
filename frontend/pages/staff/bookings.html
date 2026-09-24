@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Bookings | GlobeTrek Staff</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="dashboard.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>STAFF PORTAL</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="bookings.html"
+                class="active"
+            >
+                Bookings
+            </a>
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html">Destinations</a>
+
+            <a href="queries.html">
+                Queries
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="staff-bookings-hero">
+
+        <div class="container">
+
+            <p class="section-eyebrow">
+                BOOKING MANAGEMENT
+            </p>
+
+            <h1>
+                Manage customer
+                <span>journeys.</span>
+            </h1>
+
+            <p>
+                Review every customer booking, monitor upcoming
+                travel and update booking status from one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="staff-bookings-section">
+
+        <div class="container">
+
+            <!-- STATS -->
+            <div class="staff-booking-stats">
+
+                <article>
+                    <span>TOTAL</span>
+                    <strong id="bookingTotalCount">0</strong>
+                    <p>All bookings</p>
+                </article>
+
+                <article>
+                    <span>PENDING</span>
+                    <strong id="bookingPendingCount">0</strong>
+                    <p>Need attention</p>
+                </article>
+
+                <article>
+                    <span>CONFIRMED</span>
+                    <strong id="bookingConfirmedCount">0</strong>
+                    <p>Ready for travel</p>
+                </article>
+
+                <article>
+                    <span>COMPLETED</span>
+                    <strong id="bookingCompletedCount">0</strong>
+                    <p>Finished journeys</p>
+                </article>
+
+            </div>
+
+
+            <!-- TOOLBAR -->
+            <div class="staff-bookings-toolbar">
+
+                <div>
+
+                    <p class="section-eyebrow">
+                        CUSTOMER BOOKINGS
+                    </p>
+
+                    <h2>
+                        All Bookings
+                    </h2>
+
+                </div>
+
+
+                <div class="staff-booking-tools">
+
+                    <input
+                        type="text"
+                        id="staffBookingSearch"
+                        placeholder="Search customer, package or destination..."
+                    >
+
+
+                    <select id="staffBookingStatusFilter">
+
+                        <option value="all">
+                            All Statuses
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="confirmed">
+                            Confirmed
+                        </option>
+
+                        <option value="completed">
+                            Completed
+                        </option>
+
+                        <option value="cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="staffBookingsMessage"
+                class="auth-message"
+            ></div>
+
+
+            <div
+                id="staffBookingsLoading"
+                class="bookings-loading"
+            >
+
+                <div class="loading-ring"></div>
+
+                <p>
+                    Loading customer bookings...
+                </p>
+
+            </div>
+
+
+            <div
+                id="staffBookingsEmpty"
+                class="empty-bookings-state"
+                hidden
+            >
+
+                <div class="empty-bookings-icon">
+                    B
+                </div>
+
+                <p class="section-eyebrow">
+                    NO BOOKINGS FOUND
+                </p>
+
+                <h2>
+                    Nothing to show.
+                </h2>
+
+                <p>
+                    There are no bookings matching
+                    your current filter.
+                </p>
+
+            </div>
+
+
+            <div
+                id="staffBookingsGrid"
+                class="staff-bookings-grid"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="dashboard.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Staff</h4>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="bookings.html">
+                Bookings
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Management</h4>
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html">Destinations</a>
+
+            <a href="queries.html">
+                Queries
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Contact</h4>
+
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/staff-bookings.js"></script>
+
+</body>
+</html>

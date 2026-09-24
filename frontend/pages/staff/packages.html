@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Packages | GlobeTrek Staff</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="dashboard.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>STAFF PORTAL</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="bookings.html">
+                Bookings
+            </a>
+
+            <a
+                href="packages.html"
+                class="active"
+            >
+                Packages
+            </a>
+
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html">Destinations</a>
+
+            <a href="queries.html">
+                Queries
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="staff-packages-hero">
+
+        <div class="container">
+
+            <p class="section-eyebrow">
+                PACKAGE MANAGEMENT
+            </p>
+
+            <h1>
+                Curate memorable
+                <span>journeys.</span>
+            </h1>
+
+            <p>
+                Create, update and manage GlobeTrek tour packages,
+                accommodation choices and transportation links.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="staff-packages-section">
+
+        <div class="container">
+
+            <div
+                id="staffPackageMessage"
+                class="auth-message"
+            ></div>
+
+
+            <div class="staff-package-layout">
+
+                <!-- FORM -->
+                <section class="staff-package-form-card">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            PACKAGE BUILDER
+                        </p>
+
+                        <h2 id="packageFormTitle">
+                            Create New Package
+                        </h2>
+
+                        <p class="staff-package-form-intro">
+                            Add the main journey information and
+                            optionally connect accommodation and
+                            transportation records.
+                        </p>
+
+                    </div>
+
+
+                    <form id="staffPackageForm">
+
+                        <input
+                            type="hidden"
+                            id="editingPackageId"
+                        >
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="packageName">
+                                    Package Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="packageName"
+                                    maxlength="150"
+                                    required
+                                    placeholder="Ella Highland Escape"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="packageDestination">
+                                    Destination
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="packageDestination"
+                                    maxlength="100"
+                                    required
+                                    placeholder="Ella"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="packageDescription">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="packageDescription"
+                                rows="5"
+                                maxlength="1000"
+                                required
+                                placeholder="Describe the complete journey..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="packageDuration">
+                                    Duration (Days)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="packageDuration"
+                                    min="1"
+                                    max="365"
+                                    required
+                                    placeholder="3"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="packagePrice">
+                                    Price (LKR)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="packagePrice"
+                                    min="1"
+                                    step="0.01"
+                                    required
+                                    placeholder="45000"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="packageAccommodationId">
+                                    Linked Accommodation
+                                </label>
+
+                                <select id="packageAccommodationId">
+
+                                    <option value="">
+                                        No linked accommodation
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="packageTransportationId">
+                                    Linked Transportation
+                                </label>
+
+                                <select id="packageTransportationId">
+
+                                    <option value="">
+                                        No linked transportation
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="packageAccommodation">
+                                    Accommodation Summary
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="packageAccommodation"
+                                    maxlength="200"
+                                    placeholder="Mountain View Hotel"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="packageTransportation">
+                                    Transportation Summary
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="packageTransportation"
+                                    maxlength="200"
+                                    placeholder="Private AC Van"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="packageActivities">
+                                Activities
+                            </label>
+
+                            <textarea
+                                id="packageActivities"
+                                rows="4"
+                                maxlength="1000"
+                                placeholder="Nine Arch Bridge, hiking, tea estate visit..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="packageImageUrl">
+                                Image URL / Asset Path
+                            </label>
+
+                            <input
+                                type="text"
+                                id="packageImageUrl"
+                                maxlength="500"
+                                placeholder="images/ella.jpg"
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="staff-package-active-field"
+                            id="packageActiveGroup"
+                            hidden
+                        >
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    id="packageIsActive"
+                                    checked
+                                >
+
+                                Active package
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="staff-package-form-actions">
+
+                            <button
+                                type="button"
+                                id="cancelPackageEditBtn"
+                                class="booking-outline-btn"
+                                hidden
+                            >
+                                Cancel Edit
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                id="savePackageBtn"
+                                class="btn btn-primary"
+                            >
+                                Create Package
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <!-- SIDE GUIDE -->
+                <aside class="staff-package-guide">
+
+                    <p class="section-eyebrow">
+                        PACKAGE GUIDE
+                    </p>
+
+                    <h2>
+                        Build a complete journey.
+                    </h2>
+
+                    <p>
+                        Keep the package information clear
+                        so customers can quickly understand
+                        what is included.
+                    </p>
+
+
+                    <div class="staff-package-guide-items">
+
+                        <div>
+
+                            <span>01</span>
+
+                            <div>
+                                <strong>
+                                    Journey Basics
+                                </strong>
+
+                                <p>
+                                    Name, destination,
+                                    duration and price.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>02</span>
+
+                            <div>
+                                <strong>
+                                    Stay
+                                </strong>
+
+                                <p>
+                                    Link an available
+                                    accommodation where relevant.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>03</span>
+
+                            <div>
+                                <strong>
+                                    Transport
+                                </strong>
+
+                                <p>
+                                    Attach an existing
+                                    transportation service.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>04</span>
+
+                            <div>
+                                <strong>
+                                    Experiences
+                                </strong>
+
+                                <p>
+                                    Add the key activities
+                                    customers can expect.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+
+            <!-- PACKAGE LIST -->
+            <div class="staff-packages-list-wrap">
+
+                <div class="staff-packages-toolbar">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            ACTIVE INVENTORY
+                        </p>
+
+                        <h2>
+                            Tour Packages
+                        </h2>
+
+                    </div>
+
+
+                    <input
+                        type="text"
+                        id="staffPackageSearch"
+                        placeholder="Search package or destination..."
+                    >
+
+                </div>
+
+
+                <div
+                    id="staffPackagesLoading"
+                    class="bookings-loading"
+                >
+
+                    <div class="loading-ring"></div>
+
+                    <p>
+                        Loading packages...
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="staffPackagesEmpty"
+                    class="empty-bookings-state"
+                    hidden
+                >
+
+                    <div class="empty-bookings-icon">
+                        P
+                    </div>
+
+                    <p class="section-eyebrow">
+                        NO PACKAGES
+                    </p>
+
+                    <h2>
+                        Create your first journey.
+                    </h2>
+
+                    <p>
+                        Use the package builder above
+                        to create a GlobeTrek package.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="staffPackagesGrid"
+                    class="staff-packages-grid"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="dashboard.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Staff</h4>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="bookings.html">Bookings</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Management</h4>
+            <a href="packages.html">Packages</a>
+
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="queries.html">Queries</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/staff-packages.js"></script>
+
+</body>
+</html>

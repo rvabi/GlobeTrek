@@ -234,12 +234,30 @@ public class TravelPlansController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var plans = await _context.TravelPlans
-            .Include(t => t.Booking)
-                .ThenInclude(b => b!.User)
+            .AsNoTracking()
             .Include(t => t.Booking)
                 .ThenInclude(b => b!.TourPackage)
             .OrderByDescending(t => t.UpdatedAt)
             .ToListAsync();
+
+        var userIds = plans
+            .Where(t => t.Booking != null)
+            .Select(t => t.Booking!.UserId)
+            .Distinct()
+            .ToList();
+        var users = await _context.Users
+            .AsNoTracking()
+            .Where(u => userIds.Contains(u.UserId))
+            .ToDictionaryAsync(u => u.UserId);
+
+        foreach (var plan in plans)
+        {
+            if (plan.Booking != null)
+            {
+                users.TryGetValue(plan.Booking.UserId, out var user);
+                plan.Booking.User = user;
+            }
+        }
 
         return Ok(plans);
     }

@@ -1,11 +1,11 @@
 using System.Text;
 using GlobeTrek.Api.Data;
+using GlobeTrek.Api.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-using GlobeTrek.Api.Middleware;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,39 +33,57 @@ builder.Services
     });
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter your JWT token"
-    });
+    options.AddSecurityDefinition(
+        "Bearer",
+        new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "Enter your JWT token"
+        }
+    );
 
     options.AddSecurityRequirement(document =>
         new OpenApiSecurityRequirement
         {
-            [new OpenApiSecuritySchemeReference("Bearer", document)] = []
-        });
+            [new OpenApiSecuritySchemeReference(
+                "Bearer",
+                document
+            )] = []
+        }
+    );
 });
 
 var connectionString =
-    builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Configuration
+        .GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(
-        connectionString,
-        ServerVersion.AutoDetect(connectionString)
-    ));
+builder.Services.AddDbContext<AppDbContext>(
+    options =>
+        options.UseMySql(
+            connectionString,
+            ServerVersion.AutoDetect(
+                connectionString
+            )
+        )
+);
 
-var jwtKey = builder.Configuration["Jwt:Key"]
-             ?? throw new InvalidOperationException("JWT key missing");
+var jwtKey =
+    builder.Configuration["Jwt:Key"]
+    ?? throw new InvalidOperationException(
+        "JWT key missing"
+    );
 
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddAuthentication(
+        JwtBearerDefaults.AuthenticationScheme
+    )
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters =
@@ -76,8 +94,11 @@ builder.Services
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
 
-                ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                ValidAudience = builder.Configuration["Jwt:Audience"],
+                ValidIssuer =
+                    builder.Configuration["Jwt:Issuer"],
+
+                ValidAudience =
+                    builder.Configuration["Jwt:Audience"],
 
                 IssuerSigningKey =
                     new SymmetricSecurityKey(
@@ -90,13 +111,16 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
+    options.AddPolicy(
+        "AllowFrontend",
+        policy =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
 });
 
 var app = builder.Build();
@@ -112,6 +136,14 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
+
+/*
+ * Ensures a user deactivated after login
+ * cannot continue calling protected APIs
+ * with an already-issued JWT.
+ */
+app.UseMiddleware<ActiveUserMiddleware>();
+
 app.UseAuthorization();
 
 app.MapControllers();

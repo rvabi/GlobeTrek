@@ -48,9 +48,12 @@ public class ReportsController : ControllerBase
             await _context.CustomerQueries
                 .CountAsync(q => q.QueryStatus == "Open");
 
-        var totalSales = await _context.Payments
+        var completedAmounts = await _context.Payments
             .Where(p => p.PaymentStatus == "Completed")
-            .SumAsync(p => (decimal?)p.Amount) ?? 0;
+            .Select(p => p.Amount)
+            .ToListAsync();
+
+        var totalSales = completedAmounts.Sum();
 
         return Ok(new
         {
@@ -69,14 +72,17 @@ public class ReportsController : ControllerBase
     [HttpGet("sales")]
     public async Task<IActionResult> SalesReport()
     {
-        var payments = await _context.Payments
-            .Include(p => p.Booking)
-                .ThenInclude(b => b!.User)
-            .Include(p => p.Booking)
-                .ThenInclude(b => b!.TourPackage)
-            .Where(p => p.PaymentStatus == "Completed")
-            .OrderByDescending(p => p.PaymentDate)
-            .Select(p => new
+        var payments = await (
+            from p in _context.Payments
+            join b in _context.Bookings on p.BookingId equals b.BookingId into bookings
+            from b in bookings.DefaultIfEmpty()
+            join u in _context.Users on b.UserId equals u.UserId into users
+            from u in users.DefaultIfEmpty()
+            join t in _context.TourPackages on b.TourPackageId equals t.TourPackageId into packages
+            from t in packages.DefaultIfEmpty()
+            where p.PaymentStatus == "Completed"
+            orderby p.PaymentDate descending
+            select new
             {
                 p.PaymentId,
                 p.PaymentDate,
@@ -86,20 +92,19 @@ public class ReportsController : ControllerBase
 
                 Customer = new
                 {
-                    p.Booking!.User!.UserId,
-                    p.Booking.User.FirstName,
-                    p.Booking.User.LastName,
-                    p.Booking.User.Email
+                    UserId = b != null ? b.UserId : 0,
+                    FirstName = u != null ? u.FirstName : "Former",
+                    LastName = u != null ? u.LastName : "customer",
+                    Email = u != null ? u.Email : string.Empty
                 },
 
                 TourPackage = new
                 {
-                    p.Booking!.TourPackage!.TourPackageId,
-                    p.Booking.TourPackage.PackageName,
-                    p.Booking.TourPackage.Destination
+                    TourPackageId = b != null ? b.TourPackageId : 0,
+                    PackageName = t != null ? t.PackageName : "Unavailable package",
+                    Destination = t != null ? t.Destination : string.Empty
                 }
-            })
-            .ToListAsync();
+            }).ToListAsync();
 
         var totalSales = payments.Sum(p => p.Amount);
 
@@ -146,11 +151,14 @@ public class ReportsController : ControllerBase
     [HttpGet("bookings")]
     public async Task<IActionResult> BookingReport()
     {
-        var bookings = await _context.Bookings
-            .Include(b => b.User)
-            .Include(b => b.TourPackage)
-            .OrderByDescending(b => b.BookingDate)
-            .Select(b => new
+        var bookings = await (
+            from b in _context.Bookings
+            join u in _context.Users on b.UserId equals u.UserId into users
+            from u in users.DefaultIfEmpty()
+            join t in _context.TourPackages on b.TourPackageId equals t.TourPackageId into packages
+            from t in packages.DefaultIfEmpty()
+            orderby b.BookingDate descending
+            select new
             {
                 b.BookingId,
                 b.BookingDate,
@@ -161,20 +169,19 @@ public class ReportsController : ControllerBase
 
                 Customer = new
                 {
-                    b.User!.UserId,
-                    b.User.FirstName,
-                    b.User.LastName,
-                    b.User.Email
+                    b.UserId,
+                    FirstName = u != null ? u.FirstName : "Former",
+                    LastName = u != null ? u.LastName : "customer",
+                    Email = u != null ? u.Email : string.Empty
                 },
 
                 Package = new
                 {
-                    b.TourPackage!.TourPackageId,
-                    b.TourPackage.PackageName,
-                    b.TourPackage.Destination
+                    b.TourPackageId,
+                    PackageName = t != null ? t.PackageName : "Unavailable package",
+                    Destination = t != null ? t.Destination : string.Empty
                 }
-            })
-            .ToListAsync();
+            }).ToListAsync();
 
         return Ok(bookings);
     }

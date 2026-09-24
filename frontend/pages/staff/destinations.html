@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Management | GlobeTrek</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+<body>
+
+<header class="site-header packages-header">
+    <div class="container navbar">
+        <a href="dashboard.html" class="brand">
+            <div class="brand-icon"><span>G</span></div>
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>MANAGEMENT PORTAL</small>
+            </div>
+        </a>
+
+        <nav class="nav-links portal-nav">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="bookings.html">Bookings</a>
+            <a href="packages.html">Packages</a>
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html" class="active">Destinations</a>
+            <a href="queries.html">Queries</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button type="button" class="nav-login" onclick="logout()">Sign Out</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="portal-hero">
+        <div class="container">
+            <p class="section-eyebrow">DESTINATION MANAGEMENT</p>
+            <h1>Shape the places <span>customers discover.</span></h1>
+            <p>Maintain destination information, attractions, travel tips and imagery for the public travel experience.</p>
+        </div>
+    </section>
+
+    <section class="portal-section">
+        <div class="container">
+
+            <div id="destinationMessage" class="auth-message"></div>
+
+            <div class="portal-editor-grid">
+                <section class="portal-form-card">
+                    <p class="section-eyebrow">DESTINATION BUILDER</p>
+                    <h2 id="destinationFormTitle">Add Destination</h2>
+                    <p class="portal-form-intro">Create rich destination content that helps customers choose the right Sri Lankan journey.</p>
+
+                    <form id="destinationForm">
+                        <input type="hidden" id="editingDestinationId">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="destinationName">Name</label>
+                                <input type="text" id="destinationName" required placeholder="Ella">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="destinationLocation">Location</label>
+                                <input type="text" id="destinationLocation" required placeholder="Uva Province, Sri Lanka">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationDescription">Description</label>
+                            <textarea id="destinationDescription" rows="4" placeholder="Describe the destination..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationBestTime">Best Time To Visit</label>
+                            <input type="text" id="destinationBestTime" placeholder="January to April">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationAttractions">Attractions</label>
+                            <textarea id="destinationAttractions" rows="3" placeholder="Nine Arch Bridge, Little Adam's Peak, tea estates"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationTravelTips">Travel Tips</label>
+                            <textarea id="destinationTravelTips" rows="3" placeholder="Carry a light rain jacket and comfortable walking shoes."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationImageUrl">Image URL / Asset Path</label>
+                            <input type="text" id="destinationImageUrl" placeholder="images/destination-ella.jpg">
+                        </div>
+
+                        <div class="portal-active-box" id="destinationActiveGroup" hidden>
+                            <label>
+                                <input type="checkbox" id="destinationIsActive" checked>
+                                Active destination
+                            </label>
+                        </div>
+
+                        <div class="portal-form-actions">
+                            <button type="button" id="cancelDestinationEdit" class="booking-outline-btn" hidden>Cancel Edit</button>
+                            <button type="submit" id="saveDestinationBtn" class="btn btn-primary">
+                                Add Destination <span>→</span>
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <aside class="portal-guide-card">
+                    <p class="section-eyebrow">TRAVEL CONTENT</p>
+                    <h2>Make every place inspiring.</h2>
+                    <p>Useful descriptions, attractions and tips turn destination browsing into confident booking decisions.</p>
+
+                    <div class="portal-guide-list">
+                        <div><span>01</span><div><strong>Story</strong><p>Explain why the destination is worth visiting.</p></div></div>
+                        <div><span>02</span><div><strong>Attractions</strong><p>List clear experiences customers can recognize.</p></div></div>
+                        <div><span>03</span><div><strong>Tips</strong><p>Add practical information that improves the trip.</p></div></div>
+                    </div>
+                </aside>
+            </div>
+
+            <div class="portal-list-section">
+                <div class="portal-list-heading">
+                    <div>
+                        <p class="section-eyebrow">LIVE DESTINATIONS</p>
+                        <h2>Destination Directory</h2>
+                    </div>
+
+                    <input type="text" id="destinationSearch" placeholder="Search destination or attraction...">
+                </div>
+
+                <div id="destinationLoading" class="bookings-loading">
+                    <div class="loading-ring"></div>
+                    <p>Loading destinations...</p>
+                </div>
+
+                <div id="destinationEmpty" class="empty-bookings-state" hidden>
+                    <div class="empty-bookings-icon">D</div>
+                    <p class="section-eyebrow">NO DESTINATIONS</p>
+                    <h2>No destinations available.</h2>
+                </div>
+
+                <div id="destinationGrid" class="portal-card-grid"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/staff-destinations.js"></script>
+</body>
+</html>

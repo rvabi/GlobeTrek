@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using GlobeTrek.Api.Data;
 using GlobeTrek.Api.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -76,6 +77,11 @@ public class AdminController : ControllerBase
         int id,
         UpdateUserRoleRequest request)
     {
+        if (User.FindFirstValue(ClaimTypes.NameIdentifier) == id.ToString())
+        {
+            return BadRequest(new { message = "You cannot change your own role." });
+        }
+
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.UserId == id);
 
@@ -115,6 +121,12 @@ public class AdminController : ControllerBase
         int id,
         UpdateUserStatusRequest request)
     {
+        if (!request.IsActive &&
+            User.FindFirstValue(ClaimTypes.NameIdentifier) == id.ToString())
+        {
+            return BadRequest(new { message = "You cannot deactivate your own account." });
+        }
+
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.UserId == id);
 

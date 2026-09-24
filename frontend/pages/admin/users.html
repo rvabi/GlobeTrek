@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Management | GlobeTrek Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="dashboard.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADMIN PORTAL</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="users.html"
+                class="active"
+            >
+                Users
+            </a>
+
+            <a href="reports.html">
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="admin-users-hero">
+
+        <div class="container">
+
+            <p class="section-eyebrow">
+                USER ADMINISTRATION
+            </p>
+
+            <h1>
+                Manage people,
+                <span>roles and access.</span>
+            </h1>
+
+            <p>
+                Review customer and staff accounts,
+                update roles and manage account access
+                across the GlobeTrek platform.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="admin-users-section">
+
+        <div class="container">
+
+            <div
+                id="adminUsersMessage"
+                class="auth-message"
+            ></div>
+
+
+            <!-- STATS -->
+            <div class="admin-user-stats">
+
+                <article>
+
+                    <span>
+                        TOTAL USERS
+                    </span>
+
+                    <strong id="adminUsersTotal">
+                        0
+                    </strong>
+
+                    <p>
+                        All registered accounts
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        CUSTOMERS
+                    </span>
+
+                    <strong id="adminCustomersTotal">
+                        0
+                    </strong>
+
+                    <p>
+                        Customer accounts
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        STAFF
+                    </span>
+
+                    <strong id="adminStaffTotal">
+                        0
+                    </strong>
+
+                    <p>
+                        Staff accounts
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        INACTIVE
+                    </span>
+
+                    <strong id="adminInactiveTotal">
+                        0
+                    </strong>
+
+                    <p>
+                        Restricted accounts
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- TOOLBAR -->
+            <div class="admin-users-toolbar">
+
+                <div>
+
+                    <p class="section-eyebrow">
+                        ACCOUNT DIRECTORY
+                    </p>
+
+                    <h2>
+                        Platform Users
+                    </h2>
+
+                </div>
+
+
+                <div class="admin-user-tools">
+
+                    <input
+                        type="text"
+                        id="adminUserSearch"
+                        placeholder="Search name, email or phone..."
+                    >
+
+
+                    <select id="adminUserRoleFilter">
+
+                        <option value="all">
+                            All Roles
+                        </option>
+
+                        <option value="customer">
+                            Customers
+                        </option>
+
+                        <option value="staff">
+                            Staff
+                        </option>
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                    </select>
+
+
+                    <select id="adminUserStatusFilter">
+
+                        <option value="all">
+                            All Statuses
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="adminUsersLoading"
+                class="bookings-loading"
+            >
+
+                <div class="loading-ring"></div>
+
+                <p>
+                    Loading users...
+                </p>
+
+            </div>
+
+
+            <div
+                id="adminUsersEmpty"
+                class="empty-bookings-state"
+                hidden
+            >
+
+                <div class="empty-bookings-icon">
+                    U
+                </div>
+
+                <p class="section-eyebrow">
+                    NO USERS FOUND
+                </p>
+
+                <h2>
+                    No matching accounts.
+                </h2>
+
+                <p>
+                    Try changing the search
+                    or filter settings.
+                </p>
+
+            </div>
+
+
+            <div
+                id="adminUsersGrid"
+                class="admin-users-grid"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="dashboard.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Admin</h4>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="users.html">Users</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Analytics</h4>
+            <a href="reports.html">Reports</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-users.js"></script>
+
+</body>
+</html>

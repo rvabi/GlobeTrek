@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Staff Dashboard | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="../../index.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>STAFF PORTAL</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a
+                href="dashboard.html"
+                class="active"
+            >
+                Dashboard
+            </a>
+
+            <a href="bookings.html">
+                Bookings
+            </a>
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html">Destinations</a>
+
+            <a href="queries.html">
+                Queries
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="staff-dashboard-hero">
+
+        <div class="container staff-dashboard-hero-inner">
+
+            <div>
+
+                <p class="section-eyebrow">
+                    STAFF OPERATIONS
+                </p>
+
+                <h1>
+                    Welcome back,
+                    <span id="staffName">Staff</span>.
+                </h1>
+
+                <p>
+                    Monitor bookings, payments,
+                    packages and customer support
+                    from one place.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="staff-dashboard-section">
+
+        <div class="container">
+
+            <!-- STATS -->
+            <div class="staff-stats-grid">
+
+                <article class="staff-stat-card">
+
+                    <span>
+                        TOTAL BOOKINGS
+                    </span>
+
+                    <strong id="staffTotalBookings">
+                        0
+                    </strong>
+
+                    <p>
+                        All customer bookings
+                    </p>
+
+                </article>
+
+
+                <article class="staff-stat-card">
+
+                    <span>
+                        PENDING BOOKINGS
+                    </span>
+
+                    <strong id="staffPendingBookings">
+                        0
+                    </strong>
+
+                    <p>
+                        Need staff attention
+                    </p>
+
+                </article>
+
+
+                <article class="staff-stat-card">
+
+                    <span>
+                        ACTIVE PACKAGES
+                    </span>
+
+                    <strong id="staffActivePackages">
+                        0
+                    </strong>
+
+                    <p>
+                        Available tour packages
+                    </p>
+
+                </article>
+
+
+                <article class="staff-stat-card">
+
+                    <span>
+                        OPEN QUERIES
+                    </span>
+
+                    <strong id="staffOpenQueries">
+                        0
+                    </strong>
+
+                    <p>
+                        Waiting for response
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- SECONDARY STATS -->
+            <div class="staff-secondary-grid">
+
+                <article class="staff-summary-card">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            REVENUE
+                        </p>
+
+                        <h2>
+                            Completed Payments
+                        </h2>
+
+                    </div>
+
+                    <strong id="staffRevenue">
+                        LKR 0
+                    </strong>
+
+                </article>
+
+
+                <article class="staff-summary-card">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            CONFIRMED
+                        </p>
+
+                        <h2>
+                            Confirmed Bookings
+                        </h2>
+
+                    </div>
+
+                    <strong id="staffConfirmedBookings">
+                        0
+                    </strong>
+
+                </article>
+
+            </div>
+
+
+            <div
+                id="staffDashboardMessage"
+                class="auth-message"
+            ></div>
+
+
+            <!-- RECENT CONTENT -->
+            <div class="staff-dashboard-columns">
+
+                <section class="staff-dashboard-panel">
+
+                    <div class="staff-panel-heading">
+
+                        <div>
+
+                            <p class="section-eyebrow">
+                                LATEST ACTIVITY
+                            </p>
+
+                            <h2>
+                                Recent Bookings
+                            </h2>
+
+                        </div>
+
+                        <a
+                            href="bookings.html"
+                            class="text-link"
+                        >
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        id="staffRecentBookings"
+                        class="staff-recent-list"
+                    >
+                    </div>
+
+                </section>
+
+
+                <section class="staff-dashboard-panel">
+
+                    <div class="staff-panel-heading">
+
+                        <div>
+
+                            <p class="section-eyebrow">
+                                CUSTOMER SUPPORT
+                            </p>
+
+                            <h2>
+                                Recent Queries
+                            </h2>
+
+                        </div>
+
+                        <a
+                            href="queries.html"
+                            class="text-link"
+                        >
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        id="staffRecentQueries"
+                        class="staff-recent-list"
+                    >
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="../../index.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Staff</h4>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="bookings.html">
+                Bookings
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Management</h4>
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+            <a href="accommodations.html">Stays</a>
+            <a href="transportations.html">Transport</a>
+            <a href="destinations.html">Destinations</a>
+
+            <a href="queries.html">
+                Queries
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Contact</h4>
+
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/staff-dashboard.js"></script>
+
+</body>
+</html>

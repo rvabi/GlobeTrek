@@ -285,6 +285,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     "success"
                 );
 
+                const summaryStatus = document.getElementById("summaryStatus");
+                summaryStatus.textContent = "Confirmed";
+                summaryStatus.className = "status-confirmed";
+                paymentBtn.textContent = "Payment Completed";
+
 
                 successModal.classList.add(
                     "show"

@@ -176,12 +176,30 @@ public class PaymentsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var payments = await _context.Payments
+            .AsNoTracking()
             .Include(p => p.Booking)
-            .ThenInclude(b => b!.User)
-            .Include(p => p.Booking)
-            .ThenInclude(b => b!.TourPackage)
+                .ThenInclude(b => b!.TourPackage)
             .OrderByDescending(p => p.PaymentDate)
             .ToListAsync();
+
+        var userIds = payments
+            .Where(p => p.Booking != null)
+            .Select(p => p.Booking!.UserId)
+            .Distinct()
+            .ToList();
+        var users = await _context.Users
+            .AsNoTracking()
+            .Where(u => userIds.Contains(u.UserId))
+            .ToDictionaryAsync(u => u.UserId);
+
+        foreach (var payment in payments)
+        {
+            if (payment.Booking != null)
+            {
+                users.TryGetValue(payment.Booking.UserId, out var user);
+                payment.Booking.User = user;
+            }
+        }
 
         return Ok(payments);
     }

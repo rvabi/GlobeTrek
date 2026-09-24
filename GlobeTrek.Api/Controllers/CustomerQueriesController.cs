@@ -104,7 +104,7 @@ public class CustomerQueriesController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var query = await _context.CustomerQueries
-            .Include(q => q.User)
+            .AsNoTracking()
             .FirstOrDefaultAsync(q =>
                 q.CustomerQueryId == id);
 
@@ -130,6 +130,10 @@ public class CustomerQueriesController : ControllerBase
             return Forbid();
         }
 
+        query.User = await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.UserId == query.UserId);
+
         return Ok(query);
     }
 
@@ -137,10 +141,12 @@ public class CustomerQueriesController : ControllerBase
     [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> GetAll()
     {
-        var queries = await _context.CustomerQueries
-            .Include(q => q.User)
-            .OrderByDescending(q => q.CreatedAt)
-            .Select(q => new
+        var queries = await (
+            from q in _context.CustomerQueries
+            join u in _context.Users on q.UserId equals u.UserId into users
+            from u in users.DefaultIfEmpty()
+            orderby q.CreatedAt descending
+            select new
             {
                 q.CustomerQueryId,
                 q.Subject,
@@ -151,13 +157,12 @@ public class CustomerQueriesController : ControllerBase
                 q.RespondedAt,
                 Customer = new
                 {
-                    q.User!.UserId,
-                    q.User.FirstName,
-                    q.User.LastName,
-                    q.User.Email
+                    q.UserId,
+                    FirstName = u != null ? u.FirstName : "Former",
+                    LastName = u != null ? u.LastName : "customer",
+                    Email = u != null ? u.Email : string.Empty
                 }
-            })
-            .ToListAsync();
+            }).ToListAsync();
 
         return Ok(queries);
     }

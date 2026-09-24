@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | GlobeTrek Adventures</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="dashboard.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADMIN PORTAL</small>
+            </div>
+
+        </a>
+
+        <nav class="nav-links">
+
+            <a
+                href="dashboard.html"
+                class="active"
+            >
+                Dashboard
+            </a>
+
+            <a href="users.html">
+                Users
+            </a>
+
+            <a href="reports.html">
+                Reports
+            </a>
+
+        </nav>
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="admin-dashboard-hero">
+
+        <div class="container admin-dashboard-hero-inner">
+
+            <div>
+
+                <p class="section-eyebrow">
+                    ADMINISTRATION
+                </p>
+
+                <h1>
+                    Control the
+                    <span>GlobeTrek platform.</span>
+                </h1>
+
+                <p>
+                    Monitor customers, staff, bookings,
+                    packages, support activity and revenue
+                    from one administration dashboard.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="admin-dashboard-section">
+
+        <div class="container">
+
+            <div
+                id="adminDashboardMessage"
+                class="auth-message"
+            ></div>
+
+
+            <!-- MAIN STATS -->
+            <div class="admin-stat-grid">
+
+                <article class="admin-stat-card">
+
+                    <span>
+                        CUSTOMERS
+                    </span>
+
+                    <strong id="adminTotalCustomers">
+                        0
+                    </strong>
+
+                    <p>
+                        Registered customers
+                    </p>
+
+                </article>
+
+
+                <article class="admin-stat-card">
+
+                    <span>
+                        STAFF
+                    </span>
+
+                    <strong id="adminTotalStaff">
+                        0
+                    </strong>
+
+                    <p>
+                        Staff accounts
+                    </p>
+
+                </article>
+
+
+                <article class="admin-stat-card">
+
+                    <span>
+                        BOOKINGS
+                    </span>
+
+                    <strong id="adminTotalBookings">
+                        0
+                    </strong>
+
+                    <p>
+                        Total platform bookings
+                    </p>
+
+                </article>
+
+
+                <article class="admin-stat-card">
+
+                    <span>
+                        ACTIVE PACKAGES
+                    </span>
+
+                    <strong id="adminTotalPackages">
+                        0
+                    </strong>
+
+                    <p>
+                        Published journeys
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- REVENUE -->
+            <div class="admin-feature-grid">
+
+                <article class="admin-revenue-card">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            PLATFORM REVENUE
+                        </p>
+
+                        <h2>
+                            Total Completed Sales
+                        </h2>
+
+                        <p>
+                            Revenue generated from
+                            completed customer payments.
+                        </p>
+
+                    </div>
+
+                    <strong id="adminTotalSales">
+                        LKR 0
+                    </strong>
+
+                </article>
+
+
+                <article class="admin-health-card">
+
+                    <p class="section-eyebrow">
+                        OPERATIONS
+                    </p>
+
+                    <h2>
+                        Platform Status
+                    </h2>
+
+
+                    <div class="admin-health-item">
+
+                        <span>
+                            Pending Bookings
+                        </span>
+
+                        <strong id="adminPendingBookings">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-health-item">
+
+                        <span>
+                            Confirmed Bookings
+                        </span>
+
+                        <strong id="adminConfirmedBookings">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-health-item">
+
+                        <span>
+                            Open Queries
+                        </span>
+
+                        <strong id="adminOpenQueries">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-health-item">
+
+                        <span>
+                            Total Queries
+                        </span>
+
+                        <strong id="adminTotalQueries">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- QUICK MANAGEMENT -->
+            <div class="admin-management-wrap">
+
+                <div class="admin-management-heading">
+
+                    <p class="section-eyebrow">
+                        ADMIN TOOLS
+                    </p>
+
+                    <h2>
+                        Manage GlobeTrek
+                    </h2>
+
+                </div>
+
+
+                <div class="admin-management-grid">
+
+                    <a
+                        href="users.html"
+                        class="admin-management-card"
+                    >
+
+                        <span>
+                            01
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                User Management
+                            </h3>
+
+                            <p>
+                                Manage customers,
+                                staff roles and account status.
+                            </p>
+
+                        </div>
+
+                        <strong>
+                            →
+                        </strong>
+
+                    </a>
+
+
+                    <a
+                        href="reports.html"
+                        class="admin-management-card"
+                    >
+
+                        <span>
+                            02
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Reports & Analytics
+                            </h3>
+
+                            <p>
+                                Review sales, customers
+                                and booking performance.
+                            </p>
+
+                        </div>
+
+                        <strong>
+                            →
+                        </strong>
+
+                    </a>
+
+
+                    <a
+                        href="../staff/bookings.html"
+                        class="admin-management-card"
+                    >
+
+                        <span>
+                            03
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Booking Operations
+                            </h3>
+
+                            <p>
+                                Review and manage
+                                platform bookings.
+                            </p>
+
+                        </div>
+
+                        <strong>
+                            →
+                        </strong>
+
+                    </a>
+
+
+                    <a
+                        href="../staff/queries.html"
+                        class="admin-management-card"
+                    >
+
+                        <span>
+                            04
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Customer Support
+                            </h3>
+
+                            <p>
+                                Review customer questions
+                                and support activity.
+                            </p>
+
+                        </div>
+
+                        <strong>
+                            →
+                        </strong>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="dashboard.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Admin</h4>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="users.html">Users</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Analytics</h4>
+            <a href="reports.html">Reports</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-dashboard.js"></script>
+
+</body>
+</html>

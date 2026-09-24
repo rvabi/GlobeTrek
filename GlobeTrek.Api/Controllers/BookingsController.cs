@@ -131,7 +131,7 @@ public class BookingsController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var booking = await _context.Bookings
-            .Include(b => b.User)
+            .AsNoTracking()
             .Include(b => b.TourPackage)
             .FirstOrDefaultAsync(b => b.BookingId == id);
 
@@ -155,6 +155,10 @@ public class BookingsController : ControllerBase
             return Forbid();
         }
 
+        booking.User = await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.UserId == booking.UserId);
+
         return Ok(booking);
     }
 
@@ -163,10 +167,22 @@ public class BookingsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var bookings = await _context.Bookings
-            .Include(b => b.User)
+            .AsNoTracking()
             .Include(b => b.TourPackage)
             .OrderByDescending(b => b.BookingDate)
             .ToListAsync();
+
+        var userIds = bookings.Select(b => b.UserId).Distinct().ToList();
+        var users = await _context.Users
+            .AsNoTracking()
+            .Where(u => userIds.Contains(u.UserId))
+            .ToDictionaryAsync(u => u.UserId);
+
+        foreach (var booking in bookings)
+        {
+            users.TryGetValue(booking.UserId, out var user);
+            booking.User = user;
+        }
 
         return Ok(bookings);
     }

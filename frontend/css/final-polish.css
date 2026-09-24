@@ -1,0 +1,513 @@
+/* =========================================================
+   GlobeTrek Final Portal Polish
+   Loaded after css/style.css
+========================================================= */
+
+.portal-hero {
+    padding: 155px 0 82px;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(183, 200, 68, .16), transparent 28%),
+        linear-gradient(120deg, #081f16, var(--deep-green), #24543c);
+    color: var(--white);
+}
+
+.portal-hero h1 {
+    max-width: 880px;
+    margin-top: 8px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(3rem, 6vw, 5.1rem);
+    line-height: 1;
+    font-weight: 600;
+}
+
+.portal-hero h1 span {
+    color: var(--olive);
+    font-style: italic;
+}
+
+.portal-hero .container > p:last-child {
+    max-width: 660px;
+    margin-top: 20px;
+    color: rgba(255,255,255,.68);
+    line-height: 1.75;
+}
+
+.portal-section {
+    padding: 74px 0 120px;
+    background: var(--cream);
+}
+
+.portal-editor-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 345px;
+    gap: 42px;
+    align-items: start;
+}
+
+.portal-form-card {
+    padding: 40px;
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+}
+
+.portal-form-card h2,
+.portal-list-heading h2 {
+    margin-top: 5px;
+    color: var(--deep-green);
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+}
+
+.portal-form-intro {
+    max-width: 650px;
+    margin: 12px 0 30px;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.portal-form-card input,
+.portal-form-card select,
+.portal-form-card textarea,
+.portal-list-heading input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: #fff;
+    color: var(--deep-green);
+    font-family: "DM Sans", sans-serif;
+}
+
+.portal-form-card input,
+.portal-form-card select,
+.portal-list-heading input {
+    min-height: 47px;
+    padding: 0 14px;
+}
+
+.portal-form-card textarea {
+    padding: 14px;
+    resize: vertical;
+}
+
+.portal-form-card input:focus,
+.portal-form-card select:focus,
+.portal-form-card textarea:focus,
+.portal-list-heading input:focus {
+    outline: none;
+    border-color: var(--olive-dark);
+    box-shadow: 0 0 0 3px rgba(183, 200, 68, .14);
+}
+
+.portal-active-box {
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 12px;
+    background: var(--sage-light);
+}
+
+.portal-active-box label {
+    color: var(--deep-green);
+    font-size: .76rem;
+    font-weight: 700;
+}
+
+.portal-active-box input {
+    width: auto;
+    min-height: 0;
+    margin-right: 8px;
+    accent-color: var(--deep-green);
+}
+
+.portal-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.portal-guide-card {
+    position: sticky;
+    top: 30px;
+    overflow: hidden;
+    padding: 32px;
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 90% 10%, rgba(183,200,68,.18), transparent 35%),
+        var(--deep-green);
+    color: var(--white);
+    box-shadow: var(--shadow-card);
+}
+
+.portal-guide-card h2 {
+    margin: 7px 0 14px;
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+}
+
+.portal-guide-card > p:not(.section-eyebrow) {
+    color: rgba(255,255,255,.62);
+    font-size: .79rem;
+    line-height: 1.7;
+}
+
+.portal-guide-list {
+    margin-top: 26px;
+}
+
+.portal-guide-list > div {
+    display: flex;
+    gap: 13px;
+    padding: 17px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+}
+
+.portal-guide-list > div > span {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--olive);
+    color: var(--deep-green);
+    font-size: .63rem;
+    font-weight: 800;
+}
+
+.portal-guide-list strong {
+    font-size: .77rem;
+}
+
+.portal-guide-list p {
+    margin-top: 4px;
+    color: rgba(255,255,255,.55);
+    font-size: .68rem;
+    line-height: 1.5;
+}
+
+.portal-list-section {
+    margin-top: 85px;
+}
+
+.portal-list-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.portal-list-heading input {
+    width: 330px;
+}
+
+.portal-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.portal-management-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.portal-management-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(159,175,53,.5);
+    box-shadow: var(--shadow-card);
+}
+
+.portal-card-image {
+    position: relative;
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+}
+
+.portal-card-image > span {
+    position: absolute;
+    left: 17px;
+    bottom: 16px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: rgba(13,39,28,.72);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    font-size: .64rem;
+    font-weight: 700;
+}
+
+.portal-icon-banner {
+    min-height: 155px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 24px;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(183,200,68,.3), transparent 35%),
+        linear-gradient(135deg, var(--deep-green), #2c6247);
+    color: white;
+}
+
+.portal-icon-banner > span {
+    color: rgba(255,255,255,.7);
+    font-size: .61rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.portal-icon-banner > div {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--olive);
+    color: var(--deep-green);
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.portal-card-body {
+    padding: 24px;
+}
+
+.portal-card-body > small {
+    color: var(--olive-dark);
+    font-size: .6rem;
+    font-weight: 800;
+    letter-spacing: .07em;
+}
+
+.portal-card-body > h3 {
+    margin: 5px 0 10px;
+    color: var(--deep-green);
+    font-family: "Playfair Display", serif;
+    font-size: 1.55rem;
+}
+
+.portal-card-body > p {
+    min-height: 56px;
+    color: var(--muted);
+    font-size: .74rem;
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.portal-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 16px 0;
+    border-top: 1px solid #edf0eb;
+    border-bottom: 1px solid #edf0eb;
+}
+
+.portal-meta-grid > div {
+    min-width: 0;
+}
+
+.portal-meta-grid span,
+.portal-detail-box > span {
+    display: block;
+    color: var(--muted);
+    font-size: .59rem;
+    font-weight: 700;
+}
+
+.portal-meta-grid strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--deep-green);
+    font-size: .72rem;
+    word-break: break-word;
+}
+
+.portal-detail-box {
+    margin-top: 10px;
+    padding: 13px 14px;
+    border-radius: 12px;
+    background: var(--cream);
+}
+
+.portal-detail-box > span {
+    color: var(--olive-dark);
+    letter-spacing: .05em;
+}
+
+.portal-detail-box p {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: .68rem;
+    line-height: 1.55;
+}
+
+.portal-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 22px;
+}
+
+.portal-card-actions button {
+    width: 100%;
+}
+
+.portal-danger-btn {
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid #d9a79d;
+    border-radius: 10px;
+    background: transparent;
+    color: #96463a;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.portal-danger-btn:hover {
+    background: #fff0ec;
+}
+
+.portal-nav {
+    gap: 18px;
+}
+
+.portal-nav a {
+    white-space: nowrap;
+}
+
+@media (max-width: 1180px) {
+    .portal-card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .portal-nav {
+        gap: 11px;
+    }
+
+    .portal-nav a {
+        font-size: .72rem;
+    }
+}
+
+@media (max-width: 980px) {
+    .portal-editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-guide-card {
+        position: static;
+    }
+
+    .portal-nav {
+        overflow-x: auto;
+        max-width: 58vw;
+        padding-bottom: 4px;
+    }
+}
+
+@media (max-width: 760px) {
+    .portal-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-list-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .portal-list-heading input {
+        width: 100%;
+    }
+
+    .portal-hero {
+        padding: 132px 0 62px;
+    }
+}
+
+@media (max-width: 600px) {
+    .portal-form-card {
+        padding: 25px 20px;
+    }
+
+    .portal-form-actions {
+        flex-direction: column;
+    }
+
+    .portal-form-actions button {
+        width: 100%;
+    }
+
+    .portal-meta-grid,
+    .portal-card-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   ADMIN RETURN BUTTON
+======================================== */
+
+.admin-return-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 20px;
+
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+
+    background: var(--deep-green);
+    color: var(--white);
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 10px 30px
+        rgba(8, 31, 22, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.admin-return-button:hover {
+    transform: translateY(-2px);
+    background: var(--forest-green);
+}
+
+
+@media (max-width: 600px) {
+
+    .admin-return-button {
+        right: 14px;
+        bottom: 14px;
+
+        padding: 11px 16px;
+
+        font-size: 0.68rem;
+    }
+}

@@ -32,13 +32,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearFiltersBtn =
         document.getElementById("clearFiltersBtn");
 
-
-    // -----------------------------------
-    // Load URL parameters from Home page
-    // -----------------------------------
+    if (
+        !packageList ||
+        !packageCount ||
+        !destinationInput
+    ) {
+        return;
+    }
 
     const urlParams =
-        new URLSearchParams(window.location.search);
+        new URLSearchParams(
+            window.location.search
+        );
 
     destinationInput.value =
         urlParams.get("destination") || "";
@@ -56,25 +61,24 @@ document.addEventListener("DOMContentLoaded", () => {
         urlParams.get("maxDuration") || "";
 
 
-    // -----------------------------------
-    // Image helper
-    // -----------------------------------
-
-    function getPackageImage(packageData) {
-        const imageUrl =
-            packageData.imageUrl?.trim();
-
-        if (imageUrl) {
-            if (
-                imageUrl.startsWith("http://") ||
-                imageUrl.startsWith("https://")
-            ) {
-                return imageUrl;
-            }
-
-            return `../assets/${imageUrl}`;
+    function escapeHtml(value) {
+        if (
+            value === null ||
+            value === undefined
+        ) {
+            return "";
         }
 
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+
+    function getPackageImage(packageData) {
         const destination =
             packageData.destination
                 ?.toLowerCase() || "";
@@ -97,34 +101,55 @@ document.addEventListener("DOMContentLoaded", () => {
             return "../assets/images/package-mirissa.jpg";
         }
 
+        const imageUrl =
+            packageData.imageUrl?.trim();
+
+        if (imageUrl) {
+            if (
+                imageUrl.startsWith("http://") ||
+                imageUrl.startsWith("https://")
+            ) {
+                return imageUrl;
+            }
+
+            if (imageUrl.startsWith("assets/")) {
+                return `../${imageUrl}`;
+            }
+
+            if (imageUrl.startsWith("images/")) {
+                return `../assets/${imageUrl}`;
+            }
+        }
+
         return "../assets/images/hero-sri-lanka.jpg";
     }
 
 
-    // -----------------------------------
-    // Currency
-    // -----------------------------------
-
     function formatCurrency(value) {
-        return new Intl.NumberFormat("en-LK", {
-            style: "currency",
-            currency: "LKR",
-            maximumFractionDigits: 0
-        }).format(value);
+        return new Intl.NumberFormat(
+            "en-LK",
+            {
+                style: "currency",
+                currency: "LKR",
+                maximumFractionDigits: 0
+            }
+        ).format(
+            Number(value || 0)
+        );
     }
 
-
-    // -----------------------------------
-    // Render packages
-    // -----------------------------------
 
     function renderPackages(packages) {
         packageList.innerHTML = "";
 
-        packageError.classList.add("hidden");
+        packageError?.classList.add(
+            "hidden"
+        );
 
-        if (!packages || packages.length === 0) {
-            packageEmpty.classList.remove("hidden");
+        if (!packages?.length) {
+            packageEmpty?.classList.remove(
+                "hidden"
+            );
 
             packageCount.textContent =
                 "0 journeys found";
@@ -132,30 +157,41 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        packageEmpty.classList.add("hidden");
+        packageEmpty?.classList.add(
+            "hidden"
+        );
 
         packageCount.textContent =
             `${packages.length} journey${
-                packages.length === 1 ? "" : "s"
+                packages.length === 1
+                    ? ""
+                    : "s"
             } available`;
 
         packages.forEach(packageData => {
-
             const card =
-                document.createElement("article");
+                document.createElement(
+                    "article"
+                );
 
-            card.className = "package-card";
+            card.className =
+                "package-card";
 
             const image =
-                getPackageImage(packageData);
+                getPackageImage(
+                    packageData
+                );
 
             const accommodation =
-                packageData.accommodationDetail?.name ||
+                packageData
+                    .accommodationDetail
+                    ?.name ||
                 packageData.accommodation ||
                 "Accommodation available";
 
             const transportation =
-                packageData.transportationDetail
+                packageData
+                    .transportationDetail
                     ?.transportType ||
                 packageData.transportation ||
                 "Transport available";
@@ -169,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             rgba(10,20,10,0.03),
                             rgba(10,30,15,0.18)
                         ),
-                        url('${image}')
+                        url('${escapeHtml(image)}')
                     "
                 >
                     <span class="package-badge">
@@ -177,13 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             packageData.destination
                         )}
                     </span>
-
-                    <button
-                        class="wishlist-button"
-                        aria-label="Save package"
-                    >
-                        ♡
-                    </button>
                 </div>
 
                 <div class="package-content">
@@ -225,9 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="package-meta">
 
                         <span>
-                            ◷ ${
-                                packageData.durationDays
-                            } Days
+                            ◷ ${packageData.durationDays} Days
                         </span>
 
                         <span>
@@ -253,11 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
 
                         <a
-                            href="
-                                package-details.html?id=${
-                                    packageData.tourPackageId
-                                }
-                            "
+                            href="package-details.html?id=${
+                                packageData.tourPackageId
+                            }"
                             class="round-arrow"
                             aria-label="View package"
                         >
@@ -274,34 +299,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // -----------------------------------
-    // Escape HTML
-    // -----------------------------------
-
-    function escapeHtml(value) {
-        if (value === null || value === undefined) {
-            return "";
-        }
-
-        return String(value)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    }
-
-
-    // -----------------------------------
-    // Load packages
-    // -----------------------------------
-
     async function loadPackages() {
         packageCount.textContent =
             "Loading journeys...";
 
-        packageError.classList.add("hidden");
-        packageEmpty.classList.add("hidden");
+        packageError?.classList.add(
+            "hidden"
+        );
+
+        packageEmpty?.classList.add(
+            "hidden"
+        );
 
         try {
             const params =
@@ -321,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const maxDuration =
                 maxDurationInput.value.trim();
-
 
             if (destination) {
                 params.set(
@@ -358,24 +365,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
 
-
             let endpoint =
                 "/TourPackages";
 
             if (params.toString()) {
                 endpoint =
-                    `/TourPackages/search?${params}`;
+                    `/TourPackages/search?${params.toString()}`;
             }
 
             const packages =
-                await apiRequest(endpoint);
+                await apiRequest(
+                    endpoint
+                );
 
             renderPackages(packages);
 
             const newUrl =
                 `${window.location.pathname}${
                     params.toString()
-                        ? `?${params}`
+                        ? `?${params.toString()}`
                         : ""
                 }`;
 
@@ -384,41 +392,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 "",
                 newUrl
             );
-
-        } catch (error) {
+        }
+        catch (error) {
             console.error(error);
 
-            packageList.innerHTML = "";
+            packageList.innerHTML =
+                "";
 
             packageCount.textContent =
                 "Unable to load journeys";
 
-            packageError.textContent =
-                error.message ||
-                "Unable to load packages.";
+            if (packageError) {
+                packageError.textContent =
+                    error.message ||
+                    "Unable to load packages.";
 
-            packageError.classList.remove(
-                "hidden"
-            );
+                packageError.classList.remove(
+                    "hidden"
+                );
+            }
         }
     }
 
 
-    // -----------------------------------
-    // Search button
-    // -----------------------------------
-
-    applyFiltersBtn.addEventListener(
+    applyFiltersBtn?.addEventListener(
         "click",
         loadPackages
     );
 
-
-    // -----------------------------------
-    // Clear filters
-    // -----------------------------------
-
-    clearFiltersBtn.addEventListener(
+    clearFiltersBtn?.addEventListener(
         "click",
         () => {
             destinationInput.value = "";
@@ -431,8 +433,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
-
-    // Enter key search
     [
         destinationInput,
         minPriceInput,
@@ -440,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
         minDurationInput,
         maxDurationInput
     ].forEach(input => {
-        input.addEventListener(
+        input?.addEventListener(
             "keydown",
             event => {
                 if (event.key === "Enter") {
@@ -450,7 +450,5 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     });
 
-
-    // Initial load
     loadPackages();
 });

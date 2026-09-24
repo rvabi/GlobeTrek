@@ -1,5 +1,21 @@
-function saveAuthData(authData) {
+function normalizeRole(role) {
+    if (role === 1 || role === "1") {
+        return "Customer";
+    }
 
+    if (role === 2 || role === "2") {
+        return "Staff";
+    }
+
+    if (role === 3 || role === "3") {
+        return "Admin";
+    }
+
+    return role || "Customer";
+}
+
+
+function saveAuthData(authData) {
     if (!authData) {
         return;
     }
@@ -11,31 +27,32 @@ function saveAuthData(authData) {
         );
     }
 
+    const source =
+        authData.user || authData;
 
     const user = {
         id:
-            authData.userId ??
-            authData.id ??
+            source.userId ??
+            source.id ??
             null,
 
         firstName:
-            authData.firstName ??
+            source.firstName ??
             "",
 
         lastName:
-            authData.lastName ??
+            source.lastName ??
             "",
 
         email:
-            authData.email ??
+            source.email ??
             "",
 
         role:
             normalizeRole(
-                authData.role
+                source.role
             )
     };
-
 
     localStorage.setItem(
         "user",
@@ -44,36 +61,7 @@ function saveAuthData(authData) {
 }
 
 
-function normalizeRole(role) {
-
-    if (
-        role === 1 ||
-        role === "1"
-    ) {
-        return "Customer";
-    }
-
-    if (
-        role === 2 ||
-        role === "2"
-    ) {
-        return "Staff";
-    }
-
-    if (
-        role === 3 ||
-        role === "3"
-    ) {
-        return "Admin";
-    }
-
-
-    return role || "Customer";
-}
-
-
 function getToken() {
-
     return localStorage.getItem(
         "token"
     );
@@ -81,42 +69,33 @@ function getToken() {
 
 
 function getCurrentUser() {
-
     const raw =
         localStorage.getItem(
             "user"
         );
 
-
     if (!raw) {
         return null;
     }
 
-
     try {
-
         const user =
             JSON.parse(raw);
-
 
         user.role =
             normalizeRole(
                 user.role
             );
 
-
         return user;
-
     }
     catch {
-
         return null;
     }
 }
 
 
 function logout() {
-
     localStorage.removeItem(
         "token"
     );
@@ -125,17 +104,16 @@ function logout() {
         "user"
     );
 
-
     window.location.href =
-        getAuthPagePath("login.html");
+        getAuthPagePath(
+            "login.html"
+        );
 }
 
 
 function getAuthPagePath(file) {
-
     const path =
         window.location.pathname;
-
 
     if (
         path.includes(
@@ -148,22 +126,17 @@ function getAuthPagePath(file) {
             "/pages/admin/"
         )
     ) {
-
         return `../${file}`;
     }
-
 
     return file;
 }
 
 
 function requireAuth() {
-
     if (!getToken()) {
-
         const currentUrl =
             window.location.href;
-
 
         window.location.href =
             `${getAuthPagePath(
@@ -175,48 +148,62 @@ function requireAuth() {
         return false;
     }
 
-
     return true;
 }
 
 
-function requireRole(
-    allowedRoles
-) {
-
+function requireRole(allowedRoles) {
     if (!requireAuth()) {
         return false;
     }
 
-
     const user =
         getCurrentUser();
-
 
     if (!user) {
         logout();
         return false;
     }
 
-
     const roles =
-        Array.isArray(
-            allowedRoles
-        )
+        Array.isArray(allowedRoles)
             ? allowedRoles
             : [allowedRoles];
 
+    const normalizedAllowedRoles =
+        roles.map(
+            role =>
+                normalizeRole(role)
+        );
 
-    if (
-        !roles.includes(
+    const adminInheritsStaff =
+        user.role === "Admin" &&
+        normalizedAllowedRoles.includes(
+            "Staff"
+        );
+
+    const allowed =
+        normalizedAllowedRoles.includes(
             user.role
-        )
-    ) {
+        ) ||
+        adminInheritsStaff;
 
+    if (!allowed) {
         alert(
             "You do not have permission to access this page."
         );
 
+        if (user.role === "Admin") {
+            window.location.href =
+                "../admin/dashboard.html";
+            return false;
+        }
+
+        if (user.role === "Staff") {
+            window.location.href =
+                "../staff/dashboard.html";
+            return false;
+        }
 
         window.location.href =
             "../packages.html";
@@ -224,18 +211,15 @@ function requireRole(
         return false;
     }
 
-
     return true;
 }
 
 
 function getLoginRedirect() {
-
     const params =
         new URLSearchParams(
             window.location.search
         );
-
 
     return params.get(
         "returnUrl"
@@ -243,24 +227,18 @@ function getLoginRedirect() {
 }
 
 
-async function handleLogin(
-    event
-) {
-
+async function handleLogin(event) {
     event.preventDefault();
-
 
     const messageBox =
         document.getElementById(
             "loginMessage"
         );
 
-
     const loginBtn =
         document.getElementById(
             "loginBtn"
         );
-
 
     const email =
         document.getElementById(
@@ -269,13 +247,11 @@ async function handleLogin(
         .value
         .trim();
 
-
     const password =
         document.getElementById(
             "loginPassword"
         )
         .value;
-
 
     setAuthMessage(
         messageBox,
@@ -283,22 +259,26 @@ async function handleLogin(
         ""
     );
 
+    if (!email || !password) {
+        setAuthMessage(
+            messageBox,
+            "Email and password are required.",
+            "error"
+        );
 
-    loginBtn.disabled =
-        true;
+        return;
+    }
 
+    loginBtn.disabled = true;
     loginBtn.textContent =
         "Signing in...";
 
-
     try {
-
         const result =
             await apiRequest(
                 "/Auth/login",
                 {
                     method: "POST",
-
                     body:
                         JSON.stringify({
                             email,
@@ -307,66 +287,55 @@ async function handleLogin(
                 }
             );
 
-
-        saveAuthData(
-            result
-        );
-
-
-        const returnUrl =
-            getLoginRedirect();
-
-
-        if (returnUrl) {
-
-            window.location.href =
-                returnUrl;
-
-            return;
-        }
-
+        saveAuthData(result);
 
         const user =
             getCurrentUser();
 
+        if (!user || !getToken()) {
+            throw new Error(
+                "Login information could not be saved."
+            );
+        }
 
-        if (
-            user?.role ===
-            "Admin"
-        ) {
+        const returnUrl =
+            getLoginRedirect();
 
+        if (returnUrl) {
+            try {
+                const destination = new URL(returnUrl, window.location.href);
+                if (destination.origin === window.location.origin &&
+                    destination.pathname.startsWith("/frontend/pages/")) {
+                    window.location.href = destination.href;
+                    return;
+                }
+            } catch {
+                // Ignore an invalid return URL and use the role landing page.
+            }
+        }
+
+        if (user.role === "Admin") {
             window.location.href =
                 "admin/dashboard.html";
-
             return;
         }
 
-
-        if (
-            user?.role ===
-            "Staff"
-        ) {
-
+        if (user.role === "Staff") {
             window.location.href =
                 "staff/dashboard.html";
-
             return;
         }
-
 
         window.location.href =
             "packages.html";
-
     }
     catch (error) {
-
         setAuthMessage(
             messageBox,
             error.message ||
             "Unable to sign in.",
             "error"
         );
-
 
         loginBtn.disabled =
             false;
@@ -377,24 +346,18 @@ async function handleLogin(
 }
 
 
-async function handleRegister(
-    event
-) {
-
+async function handleRegister(event) {
     event.preventDefault();
-
 
     const messageBox =
         document.getElementById(
             "registerMessage"
         );
 
-
     const registerBtn =
         document.getElementById(
             "registerBtn"
         );
-
 
     const firstName =
         document.getElementById(
@@ -403,14 +366,12 @@ async function handleRegister(
         .value
         .trim();
 
-
     const lastName =
         document.getElementById(
             "lastName"
         )
         .value
         .trim();
-
 
     const email =
         document.getElementById(
@@ -419,7 +380,6 @@ async function handleRegister(
         .value
         .trim();
 
-
     const phoneNumber =
         document.getElementById(
             "phoneNumber"
@@ -427,13 +387,11 @@ async function handleRegister(
         .value
         .trim();
 
-
     const password =
         document.getElementById(
             "registerPassword"
         )
         .value;
-
 
     setAuthMessage(
         messageBox,
@@ -441,6 +399,20 @@ async function handleRegister(
         ""
     );
 
+    if (
+        !firstName ||
+        !lastName ||
+        !email ||
+        !password
+    ) {
+        setAuthMessage(
+            messageBox,
+            "Please complete all required fields.",
+            "error"
+        );
+
+        return;
+    }
 
     registerBtn.disabled =
         true;
@@ -448,14 +420,11 @@ async function handleRegister(
     registerBtn.textContent =
         "Creating account...";
 
-
     try {
-
         await apiRequest(
             "/Auth/register",
             {
                 method: "POST",
-
                 body:
                     JSON.stringify({
                         firstName,
@@ -467,36 +436,29 @@ async function handleRegister(
             }
         );
 
-
         setAuthMessage(
             messageBox,
             "Account created successfully. Redirecting to sign in...",
             "success"
         );
 
-
         setTimeout(
             () => {
-
                 window.location.href =
                     `login.html?email=${encodeURIComponent(
                         email
                     )}`;
-
             },
             1000
         );
-
     }
     catch (error) {
-
         setAuthMessage(
             messageBox,
             error.message ||
             "Unable to create account.",
             "error"
         );
-
 
         registerBtn.disabled =
             false;
@@ -512,22 +474,17 @@ function setAuthMessage(
     message,
     type
 ) {
-
     if (!element) {
         return;
     }
 
-
     element.textContent =
         message;
-
 
     element.className =
         "auth-message";
 
-
     if (type) {
-
         element.classList.add(
             type
         );
@@ -539,41 +496,31 @@ function setupPasswordToggle(
     buttonId,
     inputId
 ) {
-
     const button =
         document.getElementById(
             buttonId
         );
-
 
     const input =
         document.getElementById(
             inputId
         );
 
-
-    if (
-        !button ||
-        !input
-    ) {
+    if (!button || !input) {
         return;
     }
-
 
     button.addEventListener(
         "click",
         () => {
-
             const hidden =
                 input.type ===
                 "password";
-
 
             input.type =
                 hidden
                     ? "text"
                     : "password";
-
 
             button.textContent =
                 hidden
@@ -587,41 +534,36 @@ function setupPasswordToggle(
 document.addEventListener(
     "DOMContentLoaded",
     () => {
-
         const loginForm =
             document.getElementById(
                 "loginForm"
             );
 
-
         if (loginForm) {
-
             const params =
                 new URLSearchParams(
                     window.location.search
                 );
 
-
             const email =
-                params.get(
-                    "email"
-                );
-
+                params.get("email");
 
             if (email) {
+                const emailInput =
+                    document.getElementById(
+                        "loginEmail"
+                    );
 
-                document.getElementById(
-                    "loginEmail"
-                ).value =
-                    email;
+                if (emailInput) {
+                    emailInput.value =
+                        email;
+                }
             }
-
 
             loginForm.addEventListener(
                 "submit",
                 handleLogin
             );
-
 
             setupPasswordToggle(
                 "loginPasswordToggle",
@@ -629,26 +571,70 @@ document.addEventListener(
             );
         }
 
-
         const registerForm =
             document.getElementById(
                 "registerForm"
             );
 
-
         if (registerForm) {
-
             registerForm.addEventListener(
                 "submit",
                 handleRegister
             );
-
 
             setupPasswordToggle(
                 "registerPasswordToggle",
                 "registerPassword"
             );
         }
+    }
+);
 
+function addAdminReturnButton() {
+
+    const user = getCurrentUser();
+
+    if (!user || user.role !== "Admin") {
+        return;
+    }
+
+    const currentPath =
+        window.location.pathname.toLowerCase();
+
+    if (!currentPath.includes("/pages/staff/")) {
+        return;
+    }
+
+    if (
+        document.getElementById(
+            "adminReturnButton"
+        )
+    ) {
+        return;
+    }
+
+    const button =
+        document.createElement("a");
+
+    button.id =
+        "adminReturnButton";
+
+    button.href =
+        "../admin/dashboard.html";
+
+    button.className =
+        "admin-return-button";
+
+    button.innerHTML =
+        "← Back to Admin Dashboard";
+
+    document.body.appendChild(button);
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        addAdminReturnButton();
     }
 );

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace GlobeTrek.Api.Models;
 
 public class User
@@ -12,6 +14,7 @@ public class User
 
     public string PhoneNumber { get; set; } = string.Empty;
 
+    [JsonIgnore]
     public string PasswordHash { get; set; } = string.Empty;
 
     public int RoleId { get; set; }

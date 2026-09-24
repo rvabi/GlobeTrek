@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports & Analytics | GlobeTrek Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/final-polish.css">
+</head>
+
+<body>
+
+<header class="site-header packages-header">
+
+    <div class="container navbar">
+
+        <a href="dashboard.html" class="brand">
+
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div class="brand-text">
+                <strong>GlobeTrek</strong>
+                <small>ADMIN PORTAL</small>
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="users.html">
+                Users
+            </a>
+
+            <a
+                href="reports.html"
+                class="active"
+            >
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                type="button"
+                class="nav-login"
+                onclick="logout()"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="admin-reports-hero">
+
+        <div class="container">
+
+            <p class="section-eyebrow">
+                REPORTING & ANALYTICS
+            </p>
+
+            <h1>
+                Understand the
+                <span>GlobeTrek performance.</span>
+            </h1>
+
+            <p>
+                Review sales, customer activity and booking
+                performance using live data from the platform.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="admin-reports-section">
+
+        <div class="container">
+
+            <div
+                id="adminReportsMessage"
+                class="auth-message"
+            ></div>
+
+
+            <!-- OVERVIEW -->
+            <div class="admin-report-summary-grid">
+
+                <article>
+
+                    <span>
+                        TOTAL SALES
+                    </span>
+
+                    <strong id="reportTotalSales">
+                        LKR 0
+                    </strong>
+
+                    <p>
+                        Completed payment revenue
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        TRANSACTIONS
+                    </span>
+
+                    <strong id="reportTransactions">
+                        0
+                    </strong>
+
+                    <p>
+                        Completed payments
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        CUSTOMERS
+                    </span>
+
+                    <strong id="reportCustomers">
+                        0
+                    </strong>
+
+                    <p>
+                        Registered customers
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        BOOKINGS
+                    </span>
+
+                    <strong id="reportBookings">
+                        0
+                    </strong>
+
+                    <p>
+                        Total bookings
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- REPORT TABS -->
+            <div class="admin-report-tabs">
+
+                <button
+                    type="button"
+                    class="admin-report-tab active"
+                    data-report="sales"
+                >
+                    Sales Report
+                </button>
+
+
+                <button
+                    type="button"
+                    class="admin-report-tab"
+                    data-report="customers"
+                >
+                    Customer Report
+                </button>
+
+
+                <button
+                    type="button"
+                    class="admin-report-tab"
+                    data-report="bookings"
+                >
+                    Booking Report
+                </button>
+
+            </div>
+
+
+            <!-- SALES -->
+            <section
+                id="salesReportSection"
+                class="admin-report-panel active"
+            >
+
+                <div class="admin-report-heading">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            REVENUE
+                        </p>
+
+                        <h2>
+                            Sales Report
+                        </h2>
+
+                    </div>
+
+                    <div class="admin-report-highlight">
+
+                        <span>
+                            Total Revenue
+                        </span>
+
+                        <strong id="salesReportTotal">
+                            LKR 0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="salesReportLoading"
+                    class="bookings-loading"
+                >
+
+                    <div class="loading-ring"></div>
+
+                    <p>
+                        Loading sales report...
+                    </p>
+
+                </div>
+
+
+                <div class="admin-report-table-wrap">
+
+                    <table class="admin-report-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Payment</th>
+                                <th>Customer</th>
+                                <th>Package</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="salesReportBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- CUSTOMERS -->
+            <section
+                id="customersReportSection"
+                class="admin-report-panel"
+            >
+
+                <div class="admin-report-heading">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            CUSTOMER INSIGHTS
+                        </p>
+
+                        <h2>
+                            Customer Report
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="customersReportLoading"
+                    class="bookings-loading"
+                >
+
+                    <div class="loading-ring"></div>
+
+                    <p>
+                        Loading customer report...
+                    </p>
+
+                </div>
+
+
+                <div class="admin-report-table-wrap">
+
+                    <table class="admin-report-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined</th>
+                                <th>Bookings</th>
+                                <th>Total Spent</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="customersReportBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOOKINGS -->
+            <section
+                id="bookingsReportSection"
+                class="admin-report-panel"
+            >
+
+                <div class="admin-report-heading">
+
+                    <div>
+
+                        <p class="section-eyebrow">
+                            BOOKING PERFORMANCE
+                        </p>
+
+                        <h2>
+                            Booking Report
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="bookingsReportLoading"
+                    class="bookings-loading"
+                >
+
+                    <div class="loading-ring"></div>
+
+                    <p>
+                        Loading booking report...
+                    </p>
+
+                </div>
+
+
+                <div class="admin-report-table-wrap">
+
+                    <table class="admin-report-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Booking</th>
+                                <th>Customer</th>
+                                <th>Package</th>
+                                <th>Travel Date</th>
+                                <th>Travelers</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="bookingsReportBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="dashboard.html" class="brand">
+
+                <div class="brand-icon">
+                    <span>G</span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>GlobeTrek</strong>
+                    <small>ADVENTURES</small>
+                </div>
+
+            </a>
+
+            <p>
+                Premium Sri Lankan journeys,
+                thoughtfully arranged.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Admin</h4>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="users.html">Users</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Analytics</h4>
+            <a href="reports.html">Reports</a>
+        </div>
+
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Negombo, Sri Lanka</p>
+            <p>hello@globetrek.lk</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-reports.js"></script>
+
+</body>
+</html>
